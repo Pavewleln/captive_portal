@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>D-Link</title>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/null.css">
+    <link rel="stylesheet" href="css/pages/index.css">
+    <link rel="shortcut icon" href="assets/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
+        <div class="header__container">
+        </div>
+    </header>
+    <main class="page">
+        <div class="container__form">
+            <div id="authenticated-block" class="authenticated-block">
+                <h2 class="authenticated-block__title">Аутентифицированный пользователь</h2>
+                <p class="authenticated-block__text">Вы вошли в систему как <span id="username"></span></p>
+                <p class="authenticated-block__text">Время сеанса: <span id="session-timeout"></span> секунды</p>
+                <button class="authenticated-block__button button-red" id="logout">Выйти</button>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer__container">
+        </div>
+    </footer>
+</div>
+<div class="toast">
+    <span class="toast__close">&times;</span>
+    <div id="toastMessage" class="toast__message">
+    </div>
+</div>
+
+<script src="js/common/toast.js"></script>
+<script src="js/common/handleErrors.js"></script>
+<script src="js/common/config.js"></script>
+<script src="js/pages/index.js"></script>
+</body>
+</html>

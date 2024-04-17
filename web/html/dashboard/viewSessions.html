@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>D-Link</title>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/null.css">
+    <link rel="stylesheet" href="../css/pages/dashboard.css">
+    <link rel="stylesheet" href="../css/popup.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="shortcut icon" href="../assets/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
+        <div class="header__container">
+            <h2 class="header__title">Панель администратора</h2>
+            <button class="logout" id="dashboardLogout">Прервать сессию</button>
+        </div>
+    </header>
+    <nav class="sidebar">
+        <ul>
+            <a href="manageCredentials.html">
+                <li id="showManageCredentials">Управление пользователями</li>
+            </a>
+            <a href="activeSessions.html">
+                <li id="showActiveSessions">Активные сессии</li>
+            </a>
+            <a href="viewSessions.html">
+                <li id="showViewSessions">Все сессии</li>
+            </a>
+        </ul>
+    </nav>
+    <div class="navigation__mobile">
+        <button class="navigation__mobile-navigation" id="menuButton">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </div>
+    <main class="page" id="mainContent">
+        <div class="page__controls">
+            <div>
+                <button class="page__controls-export" id="exportJSONViewSessionsButton">
+                    <img alt="Экспортировать" src="../assets/img/exportButton.svg"/>
+                </button>
+            </div>
+            <div class="page__controls-filter">
+                <div class="page__controls-filter__input">
+                    <p>По дате от:</p>
+                    <input type="date" id="fromDate" name="fromDate">
+                </div>
+                <div class="page__controls-filter__input">
+                    <p>По дате до:</p>
+                    <input type="date" id="toDate" name="toDate">
+                </div>
+
+                <div class="page__controls-filter__input">
+                    <p>Поиск по имени</p>
+                    <input type="text" id="username" name="username" placeholder="Поиск">
+                </div>
+                <button id="applyFiltersButton" class="invisible">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         style="background-color: #f2f7f8;">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <button id="clearFiltersButton" class="invisible">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="page__controls-right">
+                <button class="page__controls-refresh" id="refreshButton">
+                    <img alt="Обновить" src="../assets/img/refreshButton.svg"/>
+                </button>
+            </div>
+        </div>
+        <div class="table__container">
+            <div id="viewSessions">
+                <table class="">
+                    <thead>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <div class="pagination">
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<div class="toast">
+    <span class="toast__close">&times;</span>
+    <div id="toastMessage" class="toast__message">
+    </div>
+</div>
+
+<script src="../js/common/toast.js"></script>
+<script src="../js/common/handleErrors.js"></script>
+<script src="../js/common/config.js"></script>
+<script src="../js/common/closeAllPopups.js"></script>
+<script src="../js/pages/dashboard/table.js"></script>
+<script src="../js/pages/dashboard/sidebar.js"></script>
+<script src="../js/pages/dashboard/controls.js"></script>
+<script src="../js/pages/dashboard/tables/viewSessions.js"></script>
+</body>
+</html>
