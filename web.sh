@@ -4,15 +4,15 @@
 ip_address=$(hostname -I | cut -d' ' -f1)
 
 # Copy html folder to /var/www/html
-sudo cp -r ~/captiveportal/config/postgresql/web/html /var/www/html
+sudo cp -r ~/captive_portal/config/postgresql/web/html /var/www/html
 
 # Change values in .env file
-sed -i "s|WEB_URL=http://localhost:80|WEB_URL=http://$ip_address:80|" ~/captiveportal/config/postgresql/web/server/.env
-sed -i "s|REDIRECT_OAUTH_URL=http://localhost:4000|REDIRECT_OAUTH_URL=http://$ip_address:4000|" ~/captiveportal/config/postgresql/web/server/.env
-sed -i "s|BACKEND_URL=http://localhost:4000|BACKEND_URL=http://$ip_address:4000|" ~/captiveportal/config/postgresql/web/server/.env
+sed -i "s|WEB_URL=http://localhost:80|WEB_URL=http://$ip_address:80|" ~/captive_portal/config/postgresql/web/server/.env
+sed -i "s|REDIRECT_OAUTH_URL=http://localhost:4000|REDIRECT_OAUTH_URL=http://$ip_address:4000|" ~/captive_portal/config/postgresql/web/server/.env
+sed -i "s|BACKEND_URL=http://localhost:4000|BACKEND_URL=http://$ip_address:4000|" ~/captive_portal/config/postgresql/web/server/.env
 
 # Install dependencies and start the server
-cd ~/captiveportal/config/postgresql/web/server
+cd ~/captive_portal/config/postgresql/web/server
 npm install
 
 # Try starting the server up to 2 times
@@ -27,7 +27,7 @@ for i in 1 2; do
     else
         echo "Failed to start the server."
         # Clear log file
-        rm -f ~/captiveportal/config/postgresql/web/server/logs/*.log
+        rm -f ~/captive_portal/config/postgresql/web/server/logs/*.log
     fi
 done
 
