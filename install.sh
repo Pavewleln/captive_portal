@@ -21,4 +21,4 @@ sudo ./freeradiuspgsql.sh
 
 # Install Web Captive Portal
 sudo chmod +x web.sh
-sudo ./web.sh
+#sudo ./web.sh
