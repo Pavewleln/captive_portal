@@ -186,8 +186,8 @@ CREATE TABLE IF NOT EXISTS macs (
     callingstationid text
 );
 
-CREATE INDEX macs_username_idx ON macs (username);
-CREATE INDEX macs_callingstationid_idx ON macs (callingstationid);
+create index macs_username_idx on macs (username);
+create index macs_callingstationid_idx on macs (callingstationid);
 
 /*
  * Table structure for table 'oauth_tokens'
