@@ -193,10 +193,8 @@ create index macs_callingstationid_idx on macs (callingstationid);
  * Table structure for table 'oauth_tokens'
 */
 
-CREATE TABLE IF NOT EXISTS oauth_tokens (
+CREATE TABLE IF NOT EXISTS token (
     id serial PRIMARY KEY,
-    user_id integer,
-    access_token text,
-    refresh_token text,
-    token_expiry timestamp with time zone
+    username VARCHAR(255),
+    token VARCHAR(255)
 );

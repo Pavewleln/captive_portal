@@ -8,7 +8,7 @@ sudo apt-get upgrade -y
 sudo apt-get install -y wget curl git zip unzip
 
 # Install webserver
-sudo apt-get install nginx
+sudo apt-get install -y nginx
 
 # Change database
 # Install PostgreSQL

@@ -3,17 +3,13 @@
 echo ">>> Installing PostgreSQL <<<"
 pswd='radius'
 # Set some variables
-POSTGRE_VERSION=10
+POSTGRE_VERSION=15
 
 # Install PostgreSQL
 sudo apt-get install -y php-pgsql postgresql postgresql-contrib
 
 # Listen for localhost connections
-sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/$POSTGRE_VERSION/main/postgresql.conf
-
-# Identify users via "md5", rather than "ident", allowing us
-echo "host    all             all             0.0.0.0/0             md5" | sudo tee -a /etc/postgresql/$POSTGRE_VERSION/main/pg_hba.conf
-echo "host    all             all             ::0/0               	md5" | sudo tee -a /etc/postgresql/$POSTGRE_VERSION/main/pg_hba.conf
+sed -i -E 's/^#?(listen_addresses\s*=\s*)'\''localhost'\''/\1'\''*'\''/'  /etc/postgresql/$POSTGRE_VERSION/main/postgresql.conf
 
 # Start & Enable PostgreSQL
 sudo systemctl start postgresql.service

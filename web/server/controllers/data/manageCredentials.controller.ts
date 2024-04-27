@@ -2,6 +2,7 @@ import {Request, Response} from "express";
 import {db} from "../../config/db.config";
 import * as fs from "fs";
 import {IPatchDataRequest, IPostDataRequest} from "../../types/data.interface";
+import {log} from "../../utils/logger";
 
 class ManageCredentials {
     async get(req: Request, res: Response) {
@@ -17,7 +18,7 @@ class ManageCredentials {
 
             res.status(200).json(query.rows);
         } catch (error) {
-            console.log(error);
+            log.error(error);
             res.status(500).json({msg: 'Ошибка получения данных. Попробуйте позже', error});
         }
     }
@@ -63,7 +64,7 @@ class ManageCredentials {
 
             res.download('exports/credentials.json');
         } catch (error) {
-            console.log(error);
+            log.error(error);
             res.status(500).json({msg: 'Ошибка экспорта данных. Попробуйте позже', error});
         }
     }
@@ -84,17 +85,16 @@ class ManageCredentials {
             WHERE username = $1
         `, [username]);
 
-            res.status(200).json(
-                {
-                    ...radcheckRows.reduce((acc, row) => {
-                        acc[row.attribute] = row.value;
-                        return acc;
-                    }, {}),
-                    MAC: macRows.length > 0 ? macRows[0].mac : '-',
-                }
-            );
+            const data = {
+                ...radcheckRows.reduce((acc, row) => {
+                    acc[row.attribute] = row.value;
+                    return acc;
+                }, {}),
+                MAC: macRows.length > 0 ? macRows[0].mac : '-',
+            }
+            res.status(200).json(data);
         } catch (error) {
-            console.error(error);
+            log.error(error);
             res.status(500).json({msg: 'Ошибка получения данных. Попробуйте позже', error});
         }
     }
@@ -118,15 +118,17 @@ class ManageCredentials {
                 });
             }
 
-            const newUser = await db.query('INSERT INTO radcheck (username, attribute, op, value) VALUES ($1, $2, $3, $4) RETURNING username, attribute, value', [username, 'Cleartext-Password', ':=', password]);
+            const newUser = await db.query('INSERT INTO radcheck (username, attribute, op, value) VALUES ($1, $2, $3, $4) RETURNING username, value as password', [username, 'Cleartext-Password', ':=', password]);
             await db.query('INSERT INTO radcheck (username, attribute, op, value) VALUES ($1, $2, $3, $4)', [username, 'Service-Type', ':=', role]);
 
             await db.query('INSERT INTO macs (username, callingstationid) VALUES ($1, $2)', [username, mac]);
 
+
+
             await db.query('COMMIT');
             res.status(201).json(newUser.rows[0]);
         } catch (error) {
-            console.error(error);
+            log.error(error);
             await db.query('ROLLBACK');
             res.status(500).json({msg: 'Ошибка записи. Попробуйте позже', error});
         }
@@ -145,7 +147,6 @@ class ManageCredentials {
 
             await db.query('DELETE FROM radcheck WHERE username = $1', [oldUsername]);
             await db.query('DELETE FROM macs WHERE username = $1', [oldUsername]);
-            await db.query('DELETE FROM radusergroup WHERE username = $1', [oldUsername]);
 
             for (const key of Object.keys(radcheck)) {
                 const value = radcheck[key];
@@ -159,10 +160,10 @@ class ManageCredentials {
             }
 
             await db.query('COMMIT');
-            res.status(200).json('Данные успешно изменены');
+            res.status(200);
         } catch (error) {
             await db.query('ROLLBACK');
-            console.error(error);
+            log.error(error);
             res.status(500).json({ msg: 'Ошибка изменения данных. Попробуйте позже', error });
         }
     }
@@ -177,10 +178,10 @@ class ManageCredentials {
             await db.query('DELETE FROM macs WHERE username = $1', [username]);
 
             await db.query('COMMIT');
-            res.status(200).json('Запись успешно удалена');
+            res.status(200);
         } catch (error) {
             await db.query('ROLLBACK');
-            console.log(error);
+            log.error(error);
             res.status(500).json({msg: 'Ошибка удаления записей. Попробуйте позже', error});
         }
     }

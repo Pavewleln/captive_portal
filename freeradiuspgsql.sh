@@ -10,6 +10,7 @@ sudo apt-get install -y freeradius freeradius-utils freeradius-postgresql
 cd /etc/freeradius/$RADIUS_VERSION/mods-enabled
 sudo ln -s ../mods-available/sql sql
 sudo ln -s ../mods-available/sqlcounter sqlcounter
+sed -i 's/^#\s*\(.*\$INCLUDE mods-enabled\/sql\)/\1/' /etc/freeradius/$RADIUS_VERSION/radiusd.conf
 cd
 
 # Create Database PostgreSQL
@@ -17,8 +18,9 @@ echo ">>> Create Database"
 sudo -u postgres psql -c "CREATE DATABASE radius;"
 
 # Import Schema
-sudo -u postgres psql radius < /etc/freeradius/$RADIUS_VERSION/mods-config/sql/main/postgresql/setup.sql
 sudo -u postgres psql radius < /etc/freeradius/$RADIUS_VERSION/mods-config/sql/main/postgresql/schema.sql
+sudo -u postgres psql radius < /etc/freeradius/$RADIUS_VERSION/mods-config/sql/main/postgresql/setup.sql
+
 
 # Config Sites Default
 sudo mv /etc/freeradius/$RADIUS_VERSION/sites-available/default /etc/freeradius/$RADIUS_VERSION/sites-available/default.back

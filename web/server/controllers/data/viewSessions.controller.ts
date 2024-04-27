@@ -6,7 +6,7 @@ import {log} from "../../utils/logger";
 class ViewSessions {
     async get(req: Request, res: Response) {
         try {
-            let sqlQuery = "SELECT acctuniqueid, username, nasipaddress, nasportid, acctstarttime, acctsessiontime, callingstationid FROM radacct";
+            let sqlQuery = "SELECT acctuniqueid, username, nasipaddress, nasportid, acctstarttime, acctstoptime, callingstationid FROM radacct";
 
             const { fromDate, toDate, username } = req.query;
 
@@ -29,7 +29,7 @@ class ViewSessions {
             res.json(query.rows);
         } catch (error) {
             log.error(error);
-            res.status(500).json({ msg: 'Ошибка сервера. Попробуйте позже', error });
+            res.status(500).json({ msg: 'Ошибка получения данных. Попробуйте позже', error });
         }
     }
     async export(req: Request, res: Response) {
@@ -58,7 +58,7 @@ class ViewSessions {
 
             res.download('exports/viewSessions.json');
         } catch (error) {
-            console.log(error);
+            log.error(error);
             res.status(500).json({ msg: 'Ошибка экспорта данных. Попробуйте позже', error });
         }
     }

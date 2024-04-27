@@ -2,13 +2,12 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import express from 'express';
 import cookieParser from 'cookie-parser';
-// Routes import
-import AuthRoute from './routes/account';
-import DataRoute from './routes/data';
 import {swaggerDocs} from "./utils/swagger";
 import {log} from "./utils/logger";
 import { pool } from './config/db.config';
-import session from "express-session";
+// Routes import
+import AuthRoute from './routes/account';
+import DataRoute from './routes/data';
 
 dotenv.config();
 const app = express();

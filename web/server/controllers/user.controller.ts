@@ -1,118 +1,193 @@
 import {Request, Response} from "express";
-import radius from "radius";
-import {socket} from "../config/socket.config";
 import dotenv from 'dotenv';
-import {radiusConfig} from "../config/radius.config";
+import {radiusConfig, radiusPacketCode} from "../config/radius.config";
 import {db} from "../config/db.config";
-import {ILoginQueryParams, ILoginRequestParams} from "../types/auth.interface";
-import {IRadiusRequest} from "../types/radius.interface";
 import {log} from "../utils/logger";
-import {
-    extractRequestParams,
-    handleRadiusAttributes,
-    receiveRadiusResponse,
-    sendRadiusRequest
-} from "../config/login.config";
+import {extractRequestParams, handleRadiusAttributes,} from "../config/login.config";
+import {receiveRadiusResponse, sendRadiusRequest} from "../utils/radiusProcessing";
+import jwt from "jsonwebtoken";
 
 dotenv.config();
 
-export const Login = async (req: Request, res: Response): Promise<void> => {
+class User {
+    async login(req: Request, res: Response) {
+        const {username, password} = req.body as { username: string, password: string };
+        const {clientMac, redirectUrl} = extractRequestParams(req);
 
-    const {username, password} = req.body as { username: string, password: string };
-    const {
-        clientMac,
-        redirectUrl
-    } = extractRequestParams(req);
+        try {
+            await db.query("BEGIN");
 
-    try {
-        const request = {
-            code: 'Access-Request',
-            secret: radiusConfig.secret,
-            attributes: [
-                ['User-Name', username],
-                ['User-Password', password],
-                ['Calling-Station-Id', clientMac]
-            ]
-        };
+            const request = {
+                code: radiusPacketCode.ACCESS_REQUEST,
+                secret: radiusConfig.secret,
+                attributes: [
+                    ['User-Name', username],
+                    ['User-Password', password],
+                    ['Calling-Station-Id', clientMac]
+                ]
+            };
 
-        log.info(request)
+            await sendRadiusRequest(request);
+            const response = await receiveRadiusResponse();
+            console.log(response)
+            if (response.code !== 'Access-Accept') return handleRadiusAttributes(response, res);
 
-        await sendRadiusRequest(request);
-        const response = await receiveRadiusResponse();
+            const token = jwt.sign({username}, process.env.SECRET_JWT_KEY ?? "SECRET_KEY", {
+                expiresIn: '24h'
+            });
 
-        log.info(response);
+            const userRecord = await db.query('SELECT * FROM token WHERE username = $1', [username]);
 
-        if (response.code === 'Access-Accept') {
-            res.status(200).json({...response, redirectUrl});
-        } else {
-            handleRadiusAttributes(response, res);
+            if (userRecord.rows.length > 0) {
+                await db.query(`
+                UPDATE token
+                SET token = $1
+                WHERE username = $2
+            `,
+                    [token, username]
+                );
+            } else {
+                await db.query(`
+                INSERT INTO token (username, token)
+            `,
+                    [username, token]
+                );
+            }
+
+            await db.query("COMMIT");
+            res.status(200).json({ user: { username }, token });
+        } catch (error) {
+            await db.query('ROLLBACK');
+            log.error(error);
+            res.status(500).json({msg: 'Ошибка сервера. Попробуйте позже', error});
         }
-    } catch (error) {
-        await db.query('ROLLBACK');
-        log.error(error);
-        res.status(500).json({msg: 'Ошибка сервера. Обратитесь за поддержкой.', error});
     }
-};
-export const Admin = async (req: Request, res: Response): Promise<void> => {
 
-    const {username, password} = req.body as { username: string, password: string };
-    const {
-        clientMac
-    } = extractRequestParams(req);
+    async admin(req: Request, res: Response) {
 
-    try {
+        const {username, password} = req.body as { username: string, password: string };
+        const {
+            clientMac
+        } = extractRequestParams(req);
 
-        const request = {
-            code: 'Access-Request',
-            secret: radiusConfig.secret,
-            attributes: [
-                ['User-Name', username],
-                ['User-Password', password],
-                ['Calling-Station-Id', clientMac]
-            ]
-        };
+        try {
+            const request = {
+                code: radiusPacketCode.ACCESS_REQUEST,
+                secret: radiusConfig.secret,
+                attributes: [
+                    ['User-Name', username],
+                    ['User-Password', password],
+                    ['Calling-Station-Id', clientMac]
+                ]
+            };
 
-        log.info(request)
+            await sendRadiusRequest(request);
+            const response = await receiveRadiusResponse();
 
-        await sendRadiusRequest(request);
-        const response = await receiveRadiusResponse();
+            if (response.code !== 'Access-Accept') handleRadiusAttributes(response, res);
 
-        log.info(response);
-
-        if (response.code === 'Access-Accept') {
             const serviceTypeResult = await db.query('SELECT * FROM radcheck WHERE username = $1 AND attribute = $2 AND value = $3', [username, 'Service-Type', 'Administrative-User']);
 
-            if (serviceTypeResult.rows.length > 0) {
-                res.status(200).json(response);
-            } else {
-                res.status(401).json({ msg: "Ошибка авторизации: вы не являетесь администратором", error: "Пользователь не имеет Service-Type 'Administrative'" });
+            if (serviceTypeResult.rows.length === 0) {
+                res.status(401).json({
+                    msg: "Ошибка авторизации: вы не являетесь администратором",
+                    error: "Пользователь не имеет Service-Type 'Administrative'"
+                });
             }
-        } else {
-            handleRadiusAttributes(response, res);
+
+            const token = jwt.sign({username}, process.env.SECRET_JWT_KEY ?? "SECRET_KEY", {
+                expiresIn: '24h'
+            });
+
+            const userRecord = await db.query('SELECT * FROM token WHERE username = $1', [username]);
+
+            if (userRecord.rows.length > 0) {
+                await db.query(`
+                UPDATE token
+                SET token = $1
+                WHERE username = $2
+            `,
+                    [token, username]
+                );
+            } else {
+                await db.query(`
+                INSERT INTO token (username, token)
+                VALUES ($1, $2)
+            `,
+                    [username, token]
+                );
+            }
+
+            await db.query("COMMIT");
+            res.status(200).json({ user: { username }, token });
+        } catch (error) {
+            await db.query('ROLLBACK');
+            log.error(error);
+            res.status(500).json({msg: 'Ошибка сервера. Попробуйте позже', error});
         }
-    } catch (error) {
-        await db.query('ROLLBACK');
-        log.error(error);
-        res.status(500).json({msg: 'Ошибка сервера. Обратитесь за поддержкой.', error});
     }
-};
 
-// not working
-export const Logout = async (req: Request, res: Response): Promise<void> => {
-    try {
-
-    } catch (error) {
-        log.error(error);
-        res.status(404).json({msg: 'Ошибка сервера: ' + error});
+    async refresh(req: Request, res: Response) {
+        const acctsessionid = req.query.acctsessionid as string;
+        try {
+            const result = await db.query('UPDATE radacct SET acctsessiontime = now() WHERE acctsessionid = $1 RETURNING *', [acctsessionid]);
+            res.status(200).json(result.rows[0]);
+        } catch (error) {
+            log.error(error);
+            res.status(500).json({msg: 'Ошибка сервера. Попробуйте позже', error});
+        }
     }
-};
 
-// not working
-export const Refresh = async (req: Request, res: Response): Promise<void> => {
-    try {
+    async verify(req: Request, res: Response) {
+        const username = req.username;
+        try {
+            // Запрос к таблице radcheck
+            const radcheckQuery = await db.query(
+                `SELECT value AS servicetype 
+            FROM radcheck 
+            WHERE username = $1 AND attribute = 'Service-Type'`,
+                [username]
+            );
 
-    } catch (error) {
-        log.error(error);
-        res.status(404).json({msg: 'Ошибка сервера: ' + error});
+            // Проверяем, есть ли запись в таблице radcheck
+            if (radcheckQuery.rows.length === 0) {
+                return res.status(404).json({ msg: 'Пользователь не найден' });
+            }
+
+            const servicetype = radcheckQuery.rows[0].servicetype;
+
+            // Запрос к таблице radacct
+            const radacctQuery = await db.query(
+                `SELECT acctsessionid, acctstarttime, acctsessiontime 
+            FROM radacct 
+            WHERE username = $1 AND acctstoptime IS NULL`,
+                [username]
+            );
+
+            // Проверяем, есть ли запись в таблице radacct
+            if (radacctQuery.rows.length === 0) {
+                return res.status(404).json({ msg: 'Сессия не найдена' });
+            }
+
+            const { acctsessionid, acctstarttime, acctsessiontime } = radacctQuery.rows[0];
+
+            // Возвращаем результаты обоих запросов
+            res.status(200).json({
+                user: {
+                    username,
+                    servicetype,
+                    acctsessionid,
+                    acctstarttime,
+                    acctsessiontime
+                }
+            });
+        } catch (error) {
+            log.error(error);
+            await db.query("ROLLBACK");
+            res.status(500).json({ msg: 'Ошибка сервера. Попробуйте позже', error });
+        }
     }
-};
+
+}
+
+export const user = new User();

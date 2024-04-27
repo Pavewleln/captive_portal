@@ -58,7 +58,7 @@ GRANT USAGE, SELECT ON SEQUENCE radpostauth_id_seq TO radius;
 GRANT USAGE, SELECT ON SEQUENCE nas_id_seq TO radius;
 
 GRANT USAGE, SELECT ON SEQUENCE macs_id_seq TO radius;
-GRANT USAGE, SELECT ON SEQUENCE oauth_tokens_id_seq TO radius;
+GRANT USAGE, SELECT ON SEQUENCE token_id_seq TO radius;
 
 
 /*
