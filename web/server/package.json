@@ -4,11 +4,7 @@
   "description": "captive portal backend",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf build && npx tsc",
-    "prestart": "npm run build",
-    "start": "nodemon build/index.js",
-    "preserve": "npm run build",
-    "serve": "concurrently \"npx tsc -w\" \"nodemon build/index.js\""
+    "start": "nodemon index.js"
   },
   "author": "Pavel Kulikov",
   "license": "ISC",
@@ -22,21 +18,5 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.11.3",
     "radius": "^1.1.4"
-  },
-  "devDependencies": {
-    "@types/bcryptjs": "^2.4.6",
-    "@types/cookie-parser": "^1.4.7",
-    "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
-    "@types/express-validator": "^3.0.0",
-    "@types/jsonwebtoken": "^9.0.6",
-    "@types/node": "^20.11.7",
-    "@types/pg": "^8.11.0",
-    "@types/radius": "^0.0.33",
-    "concurrently": "^8.2.2",
-    "express-validator": "^6.15.0",
-    "nodemon": "^2.0.20",
-    "rimraf": "^5.0.5",
-    "typescript": "^5.4.2"
   }
 }

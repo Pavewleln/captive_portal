@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const activeSessions_controller_1 = require("../controllers/data/activeSessions.controller");
+const manageCredentials_controller_1 = require("../controllers/data/manageCredentials.controller");
+const viewSessions_controller_1 = require("../controllers/data/viewSessions.controller");
+const router = express_1.default.Router();
+router.get("/manage-credentials", manageCredentials_controller_1.manageCredentials.get);
+router.post("/manage-credentials", manageCredentials_controller_1.manageCredentials.post);
+router.get("/manage-credentials/export", manageCredentials_controller_1.manageCredentials.export);
+router.get("/manage-credentials/:username", manageCredentials_controller_1.manageCredentials.getAllDataByUsername);
+router.patch("/manage-credentials/:username", manageCredentials_controller_1.manageCredentials.patch);
+router.delete("/manage-credentials/:username", manageCredentials_controller_1.manageCredentials.delete);
+router.get("/active-sessions", activeSessions_controller_1.activeSessions.get);
+router.get("/active-sessions/export", activeSessions_controller_1.activeSessions.export);
+router.delete('/active-sessions/disconnect/:acctsessionid', activeSessions_controller_1.activeSessions.disconnect);
+router.get("/view-sessions", viewSessions_controller_1.viewSessions.get);
+router.get("/view-sessions/export", viewSessions_controller_1.viewSessions.export);
+exports.default = router;

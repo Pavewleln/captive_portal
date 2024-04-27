@@ -1,5 +1,6 @@
-import {NextFunction, Request, Response} from 'express';
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.validateAuthData = exports.validateAuthQueryParams = void 0;
 const queryParamsToValidate = [
     'client-ip',
     'client-mac',
@@ -11,13 +12,8 @@ const queryParamsToValidate = [
     // 'accept-callback',
     'redirect-url'
 ];
-
-type ValidateLoginQueryParamsMiddleware = (req: Request, res: Response, next: NextFunction) => void;
-type ValidateLoginDataMiddleware = (req: Request, res: Response, next: NextFunction) => void;
-
-export const validateAuthQueryParams: ValidateLoginQueryParamsMiddleware = (req, res, next) => {
-    const errors: string[] = queryParamsToValidate.filter(param => req.query[param] === '' || req.query[param] === 'null' || req.query[param] === 'undefined' || req.query[param] === '-');
-
+const validateAuthQueryParams = (req, res, next) => {
+    const errors = queryParamsToValidate.filter(param => req.query[param] === '' || req.query[param] === 'null' || req.query[param] === 'undefined' || req.query[param] === '-');
     if (errors.length > 0) {
         const errorMessages = errors.map(param => `Некорректное значение параметра ${param}`).join('. ');
         return res.status(400).json({
@@ -25,34 +21,28 @@ export const validateAuthQueryParams: ValidateLoginQueryParamsMiddleware = (req,
             error: errorMessages
         });
     }
-
     next();
 };
-
-export const validateAuthData: ValidateLoginDataMiddleware = (req, res, next) => {
-    const {username, password} = req.body;
-
+exports.validateAuthQueryParams = validateAuthQueryParams;
+const validateAuthData = (req, res, next) => {
+    const { username, password } = req.body;
     if (!username || typeof username !== 'string' || !validateUsername(username)) {
         return res.status(400).json({
             msg: 'Введите корректное имя пользователя (номер телефона или электронная почта)',
             error: 'Некорректное имя пользователя'
         });
     }
-
     if (!password || typeof password !== 'string' || password.length < 8) {
         return res.status(400).json({
             msg: 'Введите корректный пароль (не менее 8 символов)',
             error: 'Слишком короткий пароль'
         });
     }
-
     next();
 };
-
-function validateUsername(username: string): boolean {
+exports.validateAuthData = validateAuthData;
+function validateUsername(username) {
     const phoneRegex = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
     return phoneRegex.test(username) || emailRegex.test(username);
 }
-
