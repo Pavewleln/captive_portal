@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="39e41272-453b-4ebf-9f88-02d3c316d19b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/html/src/.env" beforeDir="false" afterPath="$PROJECT_DIR$/html/src/.env" afterDir="false" />
+    <list default="true" id="bf8721dc-ea53-41a8-bcf9-c68bb91fadaa" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,13 +16,11 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 2
-}</component>
-  <component name="ProjectId" id="2dPiV3TNJVIVdj5PxnXuuN0sjMv" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2fhNSNZMYUy2e7Ys0nODP7JfVAR" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -33,144 +29,28 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "react",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Kulik/OneDrive/Рабочий стол/captive_portal/web/server/build",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "npm.build.executor": "Run",
-    "ts.external.directory.path": "C:\\Users\\Kulik\\OneDrive\\Рабочий стол\\captive_portal\\web\\server\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Kulik\OneDrive\Рабочий стол\captive_portal\web\server\build" />
-      <recent name="C:\Users\Kulik\OneDrive\Рабочий стол\captive_portal\web-react\src\components\pageControls" />
-      <recent name="C:\Users\Kulik\OneDrive\Рабочий стол\captive_portal\web-react\src\components\popups" />
-      <recent name="C:\Users\Kulik\OneDrive\Рабочий стол\captive_portal\web-react\src\services\data" />
-      <recent name="C:\Users\Kulik\OneDrive\Рабочий стол\captive_portal\web-react\src\store\data\viewSessions" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Kulik\OneDrive\Рабочий стол\captive_portal\web" />
-      <recent name="C:\Users\Kulik\OneDrive\Рабочий стол\captive_portal" />
-      <recent name="C:\Users\Kulik\OneDrive\Рабочий стол\captive_portal\web-react\src\store\data\viewSessions" />
-      <recent name="C:\Users\Kulik\OneDrive\Рабочий стол\captive_portal\web-react\src\store\data\activeSessions" />
-      <recent name="C:\Users\Kulik\OneDrive\Рабочий стол\captive_portal\web-react\src\store\data\manageCredentials" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/html/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="build" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="npm.build" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="39e41272-453b-4ebf-9f88-02d3c316d19b" name="Changes" comment="" />
-      <created>1709916134760</created>
+      <changelist id="bf8721dc-ea53-41a8-bcf9-c68bb91fadaa" name="Changes" comment="" />
+      <created>1714249351060</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1709916134760</updated>
-      <workItem from="1709916135948" duration="349000" />
-      <workItem from="1709917557626" duration="5830000" />
-      <workItem from="1709928415220" duration="460000" />
-      <workItem from="1709930076824" duration="15383000" />
-      <workItem from="1709997428978" duration="21958000" />
-      <workItem from="1710056299045" duration="5002000" />
-      <workItem from="1710063062872" duration="1341000" />
-      <workItem from="1710233514644" duration="9344000" />
-      <workItem from="1710272014698" duration="6000" />
-      <workItem from="1710446394697" duration="761000" />
-      <workItem from="1710487941678" duration="3894000" />
-      <workItem from="1710503250238" duration="18526000" />
-      <workItem from="1710525160148" duration="2283000" />
-      <workItem from="1710605016169" duration="8434000" />
-      <workItem from="1710655497809" duration="9581000" />
-      <workItem from="1710682911725" duration="2672000" />
-      <workItem from="1710700387220" duration="5171000" />
-      <workItem from="1710757594772" duration="1215000" />
-      <workItem from="1710760177580" duration="44000" />
-      <workItem from="1710761406418" duration="4674000" />
-      <workItem from="1710854786046" duration="20007000" />
-      <workItem from="1710919203775" duration="16669000" />
-      <workItem from="1710952902614" duration="6000" />
-      <workItem from="1711282051750" duration="13588000" />
-      <workItem from="1711701929286" duration="40000" />
-      <workItem from="1711965941789" duration="4259000" />
-      <workItem from="1712043541162" duration="22157000" />
-      <workItem from="1712127783214" duration="2861000" />
-      <workItem from="1712133580944" duration="413000" />
-      <workItem from="1712142282091" duration="2785000" />
-      <workItem from="1712147992008" duration="648000" />
-      <workItem from="1712173312092" duration="2892000" />
-      <workItem from="1712317955507" duration="11000" />
-      <workItem from="1712588866095" duration="14543000" />
-      <workItem from="1712668920439" duration="536000" />
-      <workItem from="1712696941829" duration="8000" />
-      <workItem from="1712848844441" duration="4833000" />
-      <workItem from="1712854211547" duration="79000" />
-      <workItem from="1712902659479" duration="27000" />
-      <workItem from="1713112132578" duration="3543000" />
-      <workItem from="1713198823867" duration="2455000" />
-      <workItem from="1713245701504" duration="747000" />
-      <workItem from="1713347112564" duration="1768000" />
-      <workItem from="1713431770202" duration="3333000" />
-      <workItem from="1713437049714" duration="108000" />
-      <workItem from="1713451113807" duration="15278000" />
-      <workItem from="1713476939448" duration="94000" />
-      <workItem from="1713507939282" duration="38299000" />
-      <workItem from="1713595559312" duration="13076000" />
-      <workItem from="1713615797152" duration="4181000" />
-      <workItem from="1713620393087" duration="59000" />
-      <workItem from="1713640502035" duration="4496000" />
-      <workItem from="1713686037826" duration="991000" />
-      <workItem from="1713689028392" duration="1332000" />
-      <workItem from="1713706103734" duration="55000" />
-      <workItem from="1713735265741" duration="14000" />
-      <workItem from="1713787739929" duration="30000" />
-      <workItem from="1713889023968" duration="7447000" />
-      <workItem from="1713911150681" duration="899000" />
-      <workItem from="1713941954515" duration="31770000" />
-      <workItem from="1714038039975" duration="19159000" />
-      <workItem from="1714075973653" duration="2368000" />
-      <workItem from="1714117999734" duration="15376000" />
-      <workItem from="1714200875725" duration="8148000" />
-      <workItem from="1714224751123" duration="671000" />
-      <workItem from="1714233800191" duration="1153000" />
-      <workItem from="1714234979282" duration="4860000" />
-      <workItem from="1714240776571" duration="7000" />
-      <workItem from="1714240808355" duration="5879000" />
+      <updated>1714249351060</updated>
+      <workItem from="1714249356217" duration="392000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>

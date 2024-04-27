@@ -61,9 +61,7 @@ GRANT USAGE, SELECT ON SEQUENCE macs_id_seq TO radius;
 GRANT USAGE, SELECT ON SEQUENCE token_id_seq TO radius;
 
 
-/*
- * Grant permissions for new tables and indexes
- *
- */
-
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO radius;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO radius;
+GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO radius;
+GRANT ALL PRIVILEGES ON DATABASE radius TO radius;
