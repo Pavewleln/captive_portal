@@ -2,7 +2,6 @@ import {Request, Response} from "express";
 import {db} from "../../config/db.config";
 import * as fs from "fs";
 import {IPatchDataRequest, IPostDataRequest} from "../../types/data.interface";
-import {log} from "../../utils/logger";
 
 class ManageCredentials {
     async get(req: Request, res: Response) {
@@ -18,7 +17,7 @@ class ManageCredentials {
 
             res.status(200).json(query.rows);
         } catch (error) {
-            log.error(error);
+            console.log(error);
             res.status(500).json({msg: 'Ошибка получения данных. Попробуйте позже', error});
         }
     }
@@ -64,7 +63,7 @@ class ManageCredentials {
 
             res.download('exports/credentials.json');
         } catch (error) {
-            log.error(error);
+            console.log(error);
             res.status(500).json({msg: 'Ошибка экспорта данных. Попробуйте позже', error});
         }
     }
@@ -94,7 +93,7 @@ class ManageCredentials {
             }
             res.status(200).json(data);
         } catch (error) {
-            log.error(error);
+            console.log(error);
             res.status(500).json({msg: 'Ошибка получения данных. Попробуйте позже', error});
         }
     }
@@ -124,11 +123,10 @@ class ManageCredentials {
             await db.query('INSERT INTO macs (username, callingstationid) VALUES ($1, $2)', [username, mac]);
 
 
-
             await db.query('COMMIT');
             res.status(201).json(newUser.rows[0]);
         } catch (error) {
-            log.error(error);
+            console.log(error);
             await db.query('ROLLBACK');
             res.status(500).json({msg: 'Ошибка записи. Попробуйте позже', error});
         }
@@ -163,8 +161,8 @@ class ManageCredentials {
             res.status(200);
         } catch (error) {
             await db.query('ROLLBACK');
-            log.error(error);
-            res.status(500).json({ msg: 'Ошибка изменения данных. Попробуйте позже', error });
+            console.log(error);
+            res.status(500).json({msg: 'Ошибка изменения данных. Попробуйте позже', error});
         }
     }
 
@@ -181,7 +179,7 @@ class ManageCredentials {
             res.status(200);
         } catch (error) {
             await db.query('ROLLBACK');
-            log.error(error);
+            console.log(error);
             res.status(500).json({msg: 'Ошибка удаления записей. Попробуйте позже', error});
         }
     }

@@ -2,7 +2,6 @@ import {Request, Response} from "express";
 import {OAuth2Client, TokenPayload} from "google-auth-library";
 import {google} from "googleapis";
 import dotenv from "dotenv";
-import {log} from "../../utils/logger";
 import {db} from "../../config/db.config";
 import {radiusConfig} from "../../config/radius.config";
 import {receiveRadiusResponse, sendRadiusRequest} from "../../utils/radiusProcessing";
@@ -24,7 +23,7 @@ const getUserEmail = async (sub: string, oAuth2Client: OAuth2Client): Promise<st
         });
 
         // @ts-ignore
-        const userEmail = res.data.emailAddresses.find((email: any) => email.metadata.primary)?.value;
+        const userEmail = res.data.emailAddresses.find((email: string) => email.metadata.primary)?.value;
         return userEmail || null;
     } catch (error) {
         console.error('Ошибка получения адреса электронной почты пользователя:', error);
@@ -49,7 +48,7 @@ export const OAuthGoogleRequest = async (req: Request, res: Response) => {
 
         res.json({redirectUrl: authorizeUrl});
     } catch (err) {
-        log.error(`Ошибка при запросе OAuth2: ${err}`);
+        console.log(`Ошибка при запросе OAuth2: ${err}`);
         res.status(500).send('Internal Server Error');
     }
 };
@@ -136,7 +135,7 @@ export const OauthGoogle = async (req: Request, res: Response) => {
         res.redirect(process.env.WEB_URL ?? "");
     } catch (err) {
         await db.query("ROLLBACK");
-        log.error(`Error handling OAuth2: ${err}`);
+        console.log(`Error handling OAuth2: ${err}`);
         res.status(500).send('Internal Server Error');
     }
 };

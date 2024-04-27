@@ -13,7 +13,7 @@ sed -i "s|BACKEND_URL=http://localhost:4000|BACKEND_URL=http://$ip_address:4000|
 
 # Install dependencies and start the server
 cd ~/captive_portal/config/postgresql/web/server
-npm install
+npm install typescript
 
 # Try starting the server up to 2 times
 for i in 1 2; do

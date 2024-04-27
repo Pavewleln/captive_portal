@@ -1,7 +1,6 @@
 import {Request, Response} from "express";
 import {db} from "../../config/db.config";
 import fs from "fs";
-import {log} from "../../utils/logger";
 import {radiusConfig} from "../../config/radius.config";
 import {receiveRadiusResponse, sendRadiusRequest} from "../../utils/radiusProcessing";
 
@@ -13,7 +12,7 @@ class ActiveSessions {
             );
             res.json(query.rows);
         } catch (error) {
-            log.error(error);
+            console.log(error);
             res.status(500).json({msg: 'Ошибка получения данных. Попробуйте позже', error});
         }
     }
@@ -27,7 +26,7 @@ class ActiveSessions {
 
             res.download('exports/activeSessions.json');
         } catch (error) {
-            log.error(error);
+            console.log(error);
             res.status(500).json({msg: 'Ошибка экспорта данных. Попробуйте позже', error});
         }
     }
@@ -57,7 +56,7 @@ class ActiveSessions {
             res.status(200);
         } catch (error) {
             await db.query('ROLLBACK');
-            log.error(error);
+            console.log(error);
             res.status(500).json({msg: 'Ошибка отключения пользователя. Попробуйте позже', error});
         }
     }

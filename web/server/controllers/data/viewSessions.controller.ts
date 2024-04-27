@@ -1,14 +1,13 @@
 import {Request, Response} from "express";
 import {db} from "../../config/db.config";
 import fs from "fs";
-import {log} from "../../utils/logger";
 
 class ViewSessions {
     async get(req: Request, res: Response) {
         try {
             let sqlQuery = "SELECT acctuniqueid, username, nasipaddress, nasportid, acctstarttime, acctstoptime, callingstationid FROM radacct";
 
-            const { fromDate, toDate, username } = req.query;
+            const {fromDate, toDate, username} = req.query;
 
             const filters = [];
 
@@ -28,15 +27,16 @@ class ViewSessions {
             const query = await db.query(sqlQuery);
             res.json(query.rows);
         } catch (error) {
-            log.error(error);
-            res.status(500).json({ msg: 'Ошибка получения данных. Попробуйте позже', error });
+            console.log(error);
+            res.status(500).json({msg: 'Ошибка получения данных. Попробуйте позже', error});
         }
     }
+
     async export(req: Request, res: Response) {
         try {
             let sqlQuery = "SELECT * FROM radacct";
 
-            const { fromDate, toDate, username } = req.query;
+            const {fromDate, toDate, username} = req.query;
 
             const filters = [];
 
@@ -58,8 +58,8 @@ class ViewSessions {
 
             res.download('exports/viewSessions.json');
         } catch (error) {
-            log.error(error);
-            res.status(500).json({ msg: 'Ошибка экспорта данных. Попробуйте позже', error });
+            console.log(error);
+            res.status(500).json({msg: 'Ошибка экспорта данных. Попробуйте позже', error});
         }
     }
 }

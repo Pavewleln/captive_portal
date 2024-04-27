@@ -1,8 +1,4 @@
-import {IRadiusRequest} from "../types/radius.interface";
 import radius from "radius";
-import {socket} from "./socket.config";
-import {radiusConfig} from "./radius.config";
-import {log} from "../utils/logger";
 import {Request, Response} from "express";
 import {ILoginQueryParams, ILoginRequestParams} from "../types/auth.interface";
 

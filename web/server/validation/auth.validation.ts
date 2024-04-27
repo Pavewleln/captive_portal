@@ -30,14 +30,20 @@ export const validateAuthQueryParams: ValidateLoginQueryParamsMiddleware = (req,
 };
 
 export const validateAuthData: ValidateLoginDataMiddleware = (req, res, next) => {
-    const { username, password } = req.body;
+    const {username, password} = req.body;
 
     if (!username || typeof username !== 'string' || !validateUsername(username)) {
-        return res.status(400).json({ msg: 'Введите корректное имя пользователя (номер телефона или электронная почта)', error: 'Некорректное имя пользователя' });
+        return res.status(400).json({
+            msg: 'Введите корректное имя пользователя (номер телефона или электронная почта)',
+            error: 'Некорректное имя пользователя'
+        });
     }
 
     if (!password || typeof password !== 'string' || password.length < 8) {
-        return res.status(400).json({ msg: 'Введите корректный пароль (не менее 8 символов)', error: 'Слишком короткий пароль' });
+        return res.status(400).json({
+            msg: 'Введите корректный пароль (не менее 8 символов)',
+            error: 'Слишком короткий пароль'
+        });
     }
 
     next();

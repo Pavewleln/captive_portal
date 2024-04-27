@@ -5,7 +5,7 @@ sudo apt-get update -y
 sudo apt-get upgrade -y
 
 # Install modul
-sudo apt-get install -y wget curl git zip unzip
+sudo apt-get install -y wget curl git zip unzip npm
 
 # Install webserver
 sudo apt-get install -y nginx

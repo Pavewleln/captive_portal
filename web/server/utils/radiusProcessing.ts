@@ -2,7 +2,6 @@ import {IRadiusRequest} from "../types/radius.interface";
 import radius from "radius";
 import {socket} from "../config/socket.config";
 import {radiusConfig} from "../config/radius.config";
-import {log} from "./logger";
 
 export const sendRadiusRequest = async (request: IRadiusRequest): Promise<void> => {
     const encodedRequest = radius.encode(request);
@@ -15,7 +14,7 @@ export const sendRadiusRequest = async (request: IRadiusRequest): Promise<void> 
             radiusConfig.host,
             (err) => {
                 if (err) {
-                    log.error(`Ошибка при отправке RADIUS-запроса: ${err}`);
+                    console.log(`Ошибка при отправке RADIUS-запроса: ${err}`);
                     reject(err);
                 } else {
                     resolve();

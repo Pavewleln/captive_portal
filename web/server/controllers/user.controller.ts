@@ -2,7 +2,6 @@ import {Request, Response} from "express";
 import dotenv from 'dotenv';
 import {radiusConfig, radiusPacketCode} from "../config/radius.config";
 import {db} from "../config/db.config";
-import {log} from "../utils/logger";
 import {extractRequestParams, handleRadiusAttributes,} from "../config/login.config";
 import {receiveRadiusResponse, sendRadiusRequest} from "../utils/radiusProcessing";
 import jwt from "jsonwebtoken";
@@ -49,16 +48,17 @@ class User {
             } else {
                 await db.query(`
                 INSERT INTO token (username, token)
+                VALUES ($1, $2)
             `,
                     [username, token]
                 );
             }
 
             await db.query("COMMIT");
-            res.status(200).json({ user: { username }, token });
+            res.status(200).json({user: {username}, token});
         } catch (error) {
             await db.query('ROLLBACK');
-            log.error(error);
+            console.log(error);
             res.status(500).json({msg: 'Ошибка сервера. Попробуйте позже', error});
         }
     }
@@ -119,10 +119,10 @@ class User {
             }
 
             await db.query("COMMIT");
-            res.status(200).json({ user: { username }, token });
+            res.status(200).json({user: {username}, token});
         } catch (error) {
             await db.query('ROLLBACK');
-            log.error(error);
+            console.log(error);
             res.status(500).json({msg: 'Ошибка сервера. Попробуйте позже', error});
         }
     }
@@ -133,7 +133,7 @@ class User {
             const result = await db.query('UPDATE radacct SET acctsessiontime = now() WHERE acctsessionid = $1 RETURNING *', [acctsessionid]);
             res.status(200).json(result.rows[0]);
         } catch (error) {
-            log.error(error);
+            console.log(error);
             res.status(500).json({msg: 'Ошибка сервера. Попробуйте позже', error});
         }
     }
@@ -151,7 +151,7 @@ class User {
 
             // Проверяем, есть ли запись в таблице radcheck
             if (radcheckQuery.rows.length === 0) {
-                return res.status(404).json({ msg: 'Пользователь не найден' });
+                return res.status(404).json({msg: 'Пользователь не найден'});
             }
 
             const servicetype = radcheckQuery.rows[0].servicetype;
@@ -166,10 +166,10 @@ class User {
 
             // Проверяем, есть ли запись в таблице radacct
             if (radacctQuery.rows.length === 0) {
-                return res.status(404).json({ msg: 'Сессия не найдена' });
+                return res.status(404).json({msg: 'Сессия не найдена'});
             }
 
-            const { acctsessionid, acctstarttime, acctsessiontime } = radacctQuery.rows[0];
+            const {acctsessionid, acctstarttime, acctsessiontime} = radacctQuery.rows[0];
 
             // Возвращаем результаты обоих запросов
             res.status(200).json({
@@ -182,9 +182,9 @@ class User {
                 }
             });
         } catch (error) {
-            log.error(error);
+            console.log(error);
             await db.query("ROLLBACK");
-            res.status(500).json({ msg: 'Ошибка сервера. Попробуйте позже', error });
+            res.status(500).json({msg: 'Ошибка сервера. Попробуйте позже', error});
         }
     }
 

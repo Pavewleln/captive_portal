@@ -2,9 +2,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import {swaggerDocs} from "./utils/swagger";
-import {log} from "./utils/logger";
-import { pool } from './config/db.config';
+import {pool} from './config/db.config';
 // Routes import
 import AuthRoute from './routes/account';
 import DataRoute from './routes/data';
@@ -33,13 +31,12 @@ app.use('/data', DataRoute);
 
 pool.connect((err, client, release) => {
     if (err) {
-        log.error(`Error connecting to PostgreSQL: ${err}`);
+        console.log(`Error connecting to PostgreSQL: ${err}`);
         return;
     }
-    log.info('Connected to PostgreSQL');
+    console.log('Connected to PostgreSQL');
     release();
     app.listen(port, async () => {
-        log.info(`Server is running at ${backendUrl}`);
-        swaggerDocs(app, backendUrl);
+        console.log(`Server is running at ${backendUrl}`);
     });
 });

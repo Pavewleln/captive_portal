@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import {NextFunction, Request, Response} from 'express';
+import jwt from 'jsonwebtoken';
 
 interface DecodedToken {
     username: string;
