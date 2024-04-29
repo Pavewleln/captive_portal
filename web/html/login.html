@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>D-Link</title>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages/login.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/null.css">
+    <link rel="stylesheet" href="css/popup.css">
+    <link rel="shortcut icon" href="assets/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
+        <div class="header__container">
+        </div>
+    </header>
+    <main class="page">
+        <div class="container__form">
+            <h2 class="login__title">Вход</h2>
+            <form id="loginForm" class="login__form">
+                <div class="input-container">
+                    <input type="text" id="username" name="username" required class="login__input"/>
+                    <label for="username" class="login__label">Электронная почта / Телефон</label>
+                </div>
+
+                <div class="input-container">
+                    <input type="password" id="password" name="password" required class="login__input"/>
+                    <label for="password" class="login__label">Пароль</label>
+                </div>
+                <button type="submit" class="button-blue login__button">Войти</button>
+                <div class="oauth">
+                    <a id="google-auth-link" href="#" class="oauth-google">
+                        <img class="btn-auth-img" src="assets/img/btnGoogleSigninDarkPressedWeb.png"
+                             alt="google sign in"/>
+                    </a>
+                </div>
+            </form>
+            <p class="login-message">Войти как <a class="login-link" href="admin.html">админ</a></p>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer__container">
+        </div>
+    </footer>
+</div>
+
+<div class="toast">
+    <span class="toast__close">&times;</span>
+    <div id="toastMessage" class="toast__message">
+    </div>
+</div>
+
+<script src="js/utils/toast.js"></script>
+<script src="js/utils/config.js"></script>
+<script src="js/utils/buildQueryStringFromParams.js"></script>
+<script src="js/utils/saveQueryStringFromParams.js"></script>
+<script src="js/utils/input.js"></script>
+<script src="js/pages/login.js"></script>
+</body>
+</html>

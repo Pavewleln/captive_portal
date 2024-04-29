@@ -1,0 +1,93 @@
+/*================= popup default =================*/
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+.popup__close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.popup__close:hover,
+.popup__close:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.popup__content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    max-width: 500px;
+    width: 100%;
+}
+
+
+/*================= popup__delete =================*/
+
+.popup__delete {
+    position: absolute;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: block;
+    z-index: 9999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.popup__delete p {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.popup__delete button {
+    padding: 0;
+    font-size: 14px;
+    background: none;
+    cursor: pointer;
+    transition: all ease 0.5s;
+}
+
+.popup__delete button:hover {
+    opacity: 0.7;
+}
+
+/*================= toast error =================*/
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+.toast__close {
+    color: white;
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.toast__close:hover {
+    color: red;
+}

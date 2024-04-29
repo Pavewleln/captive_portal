@@ -1,19 +1,5 @@
-# Ignore directories
-node_modules/
-build/
-dist/
 .idea
 .vscode
 
-# Ignore files
-.env
-
-# Ignore specific files in frontend
-frontend/node_modules/
-frontend/build/
-frontend/.env
-frontend/.env.production
-
 # Ignore specific files in backend
-backend/node_modules/
-backend/.env
+web/server/node_modules/

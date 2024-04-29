@@ -2,9 +2,10 @@
   "name": "captive-portal",
   "version": "1.0.0",
   "description": "captive portal backend",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "serve": "nodemon index.js"
   },
   "author": "Pavel Kulikov",
   "license": "ISC",
@@ -16,8 +17,9 @@
     "google-auth-library": "^9.6.2",
     "googleapis": "^134.0.0",
     "jsonwebtoken": "^8.5.1",
-    "nodemon": "^3.1.0",
     "pg": "^8.11.3",
-    "radius": "^1.1.4"
+    "radius": "^1.1.4",
+    "express-validator": "^6.15.0",
+    "nodemon": "^2.0.20"
   }
 }
