@@ -6,7 +6,7 @@ pswd='radius'
 POSTGRE_VERSION=15
 
 # Install PostgreSQL
-sudo apt-get install -y php-pgsql postgresql postgresql-contrib
+sudo apt-get install -y postgresql postgresql-contrib
 
 # Listen for localhost connections
 sed -i -E 's/^#?(listen_addresses\s*=\s*)'\''localhost'\''/\1'\''*'\''/'  /etc/postgresql/$POSTGRE_VERSION/main/postgresql.conf
