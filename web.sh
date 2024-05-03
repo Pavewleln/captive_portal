@@ -4,6 +4,7 @@
 ip_address=$(hostname -I | cut -d' ' -f1)
 
 # Copy html folder to /var/www/html
+sudo rm -rf /var/www/html
 sudo cp -r ./web/html /var/www/html
 
 # Change values in .env file
