@@ -20,7 +20,7 @@ sudo -u postgres psql -c "CREATE DATABASE radius;"
 # Import Schema
 sudo -u postgres psql radius < ~/captive_portal/config/postgresql/schema.sql
 sudo -u postgres psql radius < ~/captive_portal/config/postgresql/setup.sql
-sudo -u postgres psql radius < ~/MangoRad/config/postgresql/data.sql
+sudo -u postgres psql radius < ~/captive_portal/config/postgresql/data.sql
 
 
 # Config Sites Default

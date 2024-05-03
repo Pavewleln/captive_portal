@@ -14,7 +14,6 @@ sed -i "s|BACKEND_URL=http://localhost:4000|BACKEND_URL=http://$ip_address:4000|
 # Install dependencies and start the server
 cd ~/captive_portal/web/server
 npm install
-
 # Try starting the server up to 2 times
 for i in 1 2; do
     echo "Starting the server (attempt $i)..."
