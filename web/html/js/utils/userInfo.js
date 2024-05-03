@@ -24,6 +24,9 @@ async function fetchUserData() {
             updateUserInfo(data.user);
         } else {
             showToast('Ошибка получения данных пользователя', null);
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1000);
         }
     } catch (error) {
         showToast(error.message || 'Ошибка получения данных пользователя', error);
