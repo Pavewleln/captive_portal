@@ -5,6 +5,20 @@
  *
  */
 
+
+/*
+ * Table structure for table 'macs'
+*/
+
+CREATE TABLE IF NOT EXISTS macs (
+    id serial PRIMARY KEY,
+    username text,
+    callingstationid text
+);
+
+create index macs_username_idx on macs (username);
+create index macs_callingstationid_idx on macs (callingstationid);
+
 /*
  * Table structure for table 'radacct'
  *
@@ -175,26 +189,4 @@ create index nas_nasname on nas (nasname);
 CREATE TABLE IF NOT EXISTS nasreload (
         NASIPAddress            inet PRIMARY KEY,
         ReloadTime              timestamp with time zone NOT NULL
-);
-/*
- * Table structure for table 'macs'
-*/
-
-CREATE TABLE IF NOT EXISTS macs (
-    id serial PRIMARY KEY,
-    username text,
-    callingstationid text
-);
-
-create index macs_username_idx on macs (username);
-create index macs_callingstationid_idx on macs (callingstationid);
-
-/*
- * Table structure for table 'oauth_tokens'
-*/
-
-CREATE TABLE IF NOT EXISTS token (
-    id serial PRIMARY KEY,
-    username VARCHAR(255),
-    token VARCHAR(255)
 );

@@ -10,6 +10,8 @@ sudo apt-get install -y postgresql postgresql-contrib
 
 # Listen for localhost connections
 sed -i -E 's/^#?(listen_addresses\s*=\s*)'\''localhost'\''/\1'\''*'\''/'  /etc/postgresql/$POSTGRE_VERSION/main/postgresql.conf
+sudo sed -i 's/local   all             postgres                                peer/local   all             postgres                                trust/' /etc/postgresql/15/main/pg_hba.conf
+echo "local   all             radius                                trust" | sudo tee -a /etc/postgresql/15/main/pg_hba.conf > /dev/null
 
 # Start & Enable PostgreSQL
 sudo systemctl start postgresql.service
