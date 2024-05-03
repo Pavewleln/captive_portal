@@ -7,12 +7,12 @@ ip_address=$(hostname -I | cut -d' ' -f1)
 sudo cp -r ./web/html /var/www/html
 
 # Change values in .env file
-sed -i "s|WEB_URL=http://localhost:80|WEB_URL=http://$ip_address:80|" ./web/server/.env
-sed -i "s|REDIRECT_OAUTH_URL=http://localhost:4000|REDIRECT_OAUTH_URL=http://$ip_address:4000|" ./web/server/.env
-sed -i "s|BACKEND_URL=http://localhost:4000|BACKEND_URL=http://$ip_address:4000|" ./web/server/.env
+sed -i "s|WEB_URL=http://localhost:80|WEB_URL=http://$ip_address:80|" ~/captive_portal/web/server/.env
+sed -i "s|REDIRECT_OAUTH_URL=http://localhost:4000|REDIRECT_OAUTH_URL=http://$ip_address:4000|" ~/captive_portal/web/server/.env
+sed -i "s|BACKEND_URL=http://localhost:4000|BACKEND_URL=http://$ip_address:4000|" ~/captive_portal/web/server/.env
 
 # Install dependencies and start the server
-cd ./web/server
+cd ~/captive_portal/web/server
 npm install
 
 # Try starting the server up to 2 times
