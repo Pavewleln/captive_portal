@@ -1,7 +1,7 @@
 import {db} from "../../config/db.config.js";
 import * as fs from "fs";
 
-class ManageCredentials {
+class Users {
     async get(req, res) {
         try {
             const query = await db.query(`
@@ -123,11 +123,9 @@ class ManageCredentials {
 
     async patch(req, res) {
         try {
-            const oldUsername = req.params.username;
             const {
-                username, macs, radcheck
+                oldUsername, newUsername, macs, radcheck
             } = req.body;
-
             await db.query('BEGIN');
 
             await db.query('DELETE FROM radcheck WHERE username = $1', [oldUsername]);
@@ -136,12 +134,12 @@ class ManageCredentials {
             for (const key of Object.keys(radcheck)) {
                 const value = radcheck[key];
                 const [attribute] = key.split('_');
-                await db.query('INSERT INTO radcheck (username, attribute, op, value) VALUES ($1, $2, $3, $4)', [username, attribute, ':=', value]);
+                await db.query('INSERT INTO radcheck (username, attribute, op, value) VALUES ($1, $2, $3, $4)', [newUsername, attribute, ':=', value]);
             }
 
             for (const key of Object.keys(macs)) {
                 const callingstationid = macs[key];
-                await db.query('INSERT INTO macs (username, callingstationid) VALUES ($1, $2)', [username, callingstationid]);
+                await db.query('INSERT INTO macs (username, callingstationid) VALUES ($1, $2)', [newUsername, callingstationid]);
             }
 
             await db.query('COMMIT');
@@ -172,4 +170,4 @@ class ManageCredentials {
     }
 }
 
-export const manageCredentials = new ManageCredentials();
+export const users = new Users();

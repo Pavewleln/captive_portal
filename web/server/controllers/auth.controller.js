@@ -6,7 +6,7 @@ import {receiveRadiusResponse, sendRadiusRequest} from "../utils/radiusProcessin
 
 dotenv.config();
 
-class User {
+class Auth {
     async login(req, res) {
         const {username, password} = req.body
         const {clientMac, redirectUrl} = extractRequestParams(req);
@@ -48,7 +48,7 @@ class User {
 
             if (response.code !== 'Access-Accept') handleRadiusAttributes(response, res);
 
-            const serviceTypeResult = await db.query('SELECT * FROM radcheck WHERE username = $1 AND attribute = $2 AND value = $3', [username, 'Service-Type', 'Administrative-User']);
+            const serviceTypeResult = await db.query('SELECT * FROM radcheck WHERE username = $1 AND attribute = $2 AND value = $3', [username, 'Service-Type', 'Administrative-Auth']);
 
             if (serviceTypeResult.rows.length === 0) {
                 res.status(401).json({
@@ -115,4 +115,4 @@ class User {
     }
 }
 
-export const user = new User();
+export const auth = new Auth();

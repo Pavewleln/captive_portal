@@ -1,5 +1,7 @@
 document.getElementById('exportJSONActiveSessionsButton').addEventListener('click', exportActiveSessions)
 
+refreshButton.addEventListener('click', getActiveSessions);
+
 async function getActiveSessions() {
     toggleRefreshButton(true);
     try {

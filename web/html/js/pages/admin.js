@@ -15,7 +15,7 @@ document.getElementById("adminForm").addEventListener("submit", async (event) =>
 
         const data = await response.json();
         if (data.user && data.user.username) {
-            window.location.href = "dashboard/manageCredentials.html";
+            window.location.href = "dashboard/users.html";
         } else {
             showToast("Ошибка авторизации. Проверьте правильность введенных данных");
         }

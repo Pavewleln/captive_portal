@@ -1,23 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const currentPage = window.location.pathname.split('/').pop(); // Получаем имя текущей страницы из URL
+    const currentPage = window.location.pathname.split('/').pop();
 
-    // Определяем название страницы и соответствующий элемент навигации
     let pageName, navigationItem;
     switch(currentPage) {
-        case 'manageCredentials.html':
-            pageName = 'showManageCredentials';
+        case 'users.html':
+            pageName = 'showUsers';
             break;
         case 'activeSessions.html':
             pageName = 'showActiveSessions';
             break;
-        case 'viewSessions.html':
-            pageName = 'showViewSessions';
+        case 'allSessions.html':
+            pageName = 'showAllSessions';
+            break;
+        case 'events.html':
+            pageName = 'showEvents';
             break;
         default:
-            return; // Выйти из функции, если страница не соответствует ни одному из ожидаемых значений
+            return;
     }
 
-    // Добавляем класс active соответствующему элементу навигации
     navigationItem = document.getElementById(pageName);
     if(navigationItem) {
         navigationItem.classList.add('active');

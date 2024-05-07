@@ -1,21 +1,22 @@
 import express from 'express';
 import {activeSessions} from "../controllers/data/activeSessions.controller.js";
-import {manageCredentials} from "../controllers/data/manageCredentials.controller.js";
-import {viewSessions} from "../controllers/data/viewSessions.controller.js";
+import {users} from "../controllers/data/users.controller.js";
+import {allSessions} from "../controllers/data/allSessions.controller.js";
+import {events} from "../controllers/data/events.controller.js";
 
 const router = express.Router();
 
-router.get("/manage-credentials", manageCredentials.get);
+router.get("/users", users.get);
 
-router.post("/manage-credentials", manageCredentials.post);
+router.post("/users", users.post);
 
-router.get("/manage-credentials/export", manageCredentials.export);
+router.get("/users/export", users.export);
 
-router.get("/manage-credentials/:username", manageCredentials.getAllDataByUsername);
+router.get("/users/:username", users.getAllDataByUsername);
 
-router.patch("/manage-credentials/:username", manageCredentials.patch);
+router.patch("/users", users.patch);
 
-router.delete("/manage-credentials/:username", manageCredentials.delete);
+router.delete("/users/:username", users.delete);
 
 router.get("/active-sessions", activeSessions.get);
 
@@ -23,8 +24,10 @@ router.get("/active-sessions/export", activeSessions.export);
 
 router.delete('/active-sessions/disconnect/:acctsessionid', activeSessions.disconnect);
 
-router.get("/view-sessions", viewSessions.get);
+router.get("/all-sessions", allSessions.get);
 
-router.get("/view-sessions/export", viewSessions.export);
+router.get("/all-sessions/export", allSessions.export);
 
+router.get("/events", events.get);
+router.get("/events/export", events.export);
 export default router;

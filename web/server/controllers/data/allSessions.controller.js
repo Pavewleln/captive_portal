@@ -1,7 +1,7 @@
 import {db} from "../../config/db.config.js";
 import fs from "fs";
 
-class ViewSessions {
+class AllSessions {
     async get(req, res) {
         try {
             let sqlQuery = "SELECT acctuniqueid, username, nasipaddress, nasportid, acctstarttime, acctstoptime, callingstationid FROM radacct";
@@ -63,4 +63,4 @@ class ViewSessions {
     }
 }
 
-export const viewSessions = new ViewSessions();
+export const allSessions = new AllSessions();

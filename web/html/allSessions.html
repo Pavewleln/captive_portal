@@ -26,14 +26,17 @@
     </header>
     <nav class="sidebar">
         <ul>
-            <a href="manageCredentials.html">
-                <li id="showManageCredentials">Управление пользователями</li>
+            <a href="users.html">
+                <li id="showUsers">Управление пользователями</li>
             </a>
             <a href="activeSessions.html">
                 <li id="showActiveSessions">Активные сессии</li>
             </a>
-            <a href="viewSessions.html">
-                <li id="showViewSessions">Все сессии</li>
+            <a href="allSessions.html">
+                <li id="showAllSessions">Все сессии</li>
+            </a>
+            <a href="events.html">
+                <li id="showEvents">События портала</li>
             </a>
         </ul>
     </nav>
@@ -47,7 +50,7 @@
     <main class="page" id="mainContent">
         <div class="page__controls">
             <div>
-                <button class="page__controls-export" id="exportJSONViewSessionsButton">
+                <button class="page__controls-export" id="exportJSONAllSessionsButton">
                     <img alt="Экспортировать" src="assets/img/exportButton.svg"/>
                 </button>
             </div>
@@ -88,7 +91,7 @@
             </div>
         </div>
         <div class="table__container">
-            <div id="viewSessions">
+            <div id="allSessions">
                 <table class="">
                     <thead>
                     </thead>
@@ -115,7 +118,7 @@
 <script src="js/pages/dashboard/table.js"></script>
 <script src="js/pages/dashboard/sidebar.js"></script>
 <script src="js/pages/dashboard/controls.js"></script>
-<script src="js/pages/dashboard/tables/viewSessions.js"></script>
-<!--<script src="js/utils/userInfo.js"></script>-->
+<script src="js/pages/dashboard/tables/allSessions.js"></script>
+<script src="js/utils/userInfo.js"></script>
 </body>
 </html>

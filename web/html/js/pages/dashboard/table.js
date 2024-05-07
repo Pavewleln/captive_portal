@@ -9,9 +9,6 @@ function setAttributesBasedOnColumnName(row, columnName, cellValue) {
         case 'username':
             row.setAttribute('data-username', cellValue);
             break;
-        case 'acctuniqueid':
-            row.setAttribute('data-acctuniqueid', cellValue);
-            break;
         case 'acctsessionid':
             row.setAttribute('data-acctsessionid', cellValue);
             break;
@@ -40,7 +37,7 @@ function fillTable(tableName, data) {
     }
 
     const columns = Object.keys(data[0]);
-    if (tableName !== 'viewSessions') {
+    if (tableName !== 'allSessions' && tableName !== 'events') {
         columns.push('');
     }
 
@@ -75,9 +72,7 @@ function createTableRow(row, item, columns, tableName) {
             svgIcon.setAttribute("viewBox", "0 0 512 512");
             svgIcon.setAttribute("fill", "none");
             svgIcon.classList.add('arrow');
-            svgIcon.innerHTML = `
-                <path d="M93 175L256 338L419 175" stroke="black" stroke-width="24" stroke-linecap="round"/>
-            `;
+            svgIcon.innerHTML = `<path d="M93 175L256 338L419 175" stroke="black" stroke-width="24" stroke-linecap="round"/>`;
             td.appendChild(svgIcon);
             td.addEventListener('click', () => toggleTooltip(row, tableName));
         } else {
