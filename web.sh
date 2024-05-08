@@ -5,15 +5,15 @@ ip_address=$(hostname -I | cut -d' ' -f1)
 
 # Copy html folder to /var/www/html
 sudo rm -rf /var/www/html
-sudo cp -r ./web/html /var/www/html
+sudo cp -r ./portal/html /var/www/html
 
 # Change values in .env file
-sed -i "s|WEB_URL=http://localhost:80|WEB_URL=http://$ip_address:80|" ~/captive_portal/web/server/.env
-sed -i "s|REDIRECT_OAUTH_URL=http://localhost:4000|REDIRECT_OAUTH_URL=http://$ip_address:4000|" ~/captive_portal/web/server/.env
-sed -i "s|BACKEND_URL=http://localhost:4000|BACKEND_URL=http://$ip_address:4000|" ~/captive_portal/web/server/.env
+sed -i "s|WEB_URL=http://localhost:80|WEB_URL=http://$ip_address:80|" ~/captive_portal/portal/server/.env
+sed -i "s|REDIRECT_OAUTH_URL=http://localhost:4000|REDIRECT_OAUTH_URL=http://$ip_address:4000|" ~/captive_portal/portal/server/.env
+sed -i "s|BACKEND_URL=http://localhost:4000|BACKEND_URL=http://$ip_address:4000|" ~/captive_portal/portal/server/.env
 
 # Install dependencies and start the server
-cd ~/captive_portal/web/server
+cd ~/captive_portal/portal/server
 npm install
 # Try starting the server up to 2 times
 for i in 1 2; do
@@ -27,7 +27,7 @@ for i in 1 2; do
     else
         echo "Failed to start the server."
         # Clear log file
-        rm -f ~/captive_portal/web/server/logs/*.log
+        rm -f ~/captive_portal/portal/server/logs/*.log
     fi
 done
 

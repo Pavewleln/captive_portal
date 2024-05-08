@@ -2,4 +2,4 @@
 .vscode
 
 # Ignore specific files in backend
-web/server/node_modules/
+portal/server/node_modules/
