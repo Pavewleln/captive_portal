@@ -8,10 +8,11 @@ export const extractRequestParams = (req) => {
         'ac-mac': acMac,
         ssid,
         'accept-callback': acceptCallback,
-        'redirect-url': redirectUrl
+        'redirect-url': redirectUrl,
+        'ap-port': apPort
     } = req.query
 
-    return {clientMac, clientIp, apIp, apMac, acIp, acMac, ssid, acceptCallback, redirectUrl};
+    return {clientMac, clientIp, apIp, apMac, acIp, acMac, ssid, acceptCallback, redirectUrl, apPort};
 };
 
 export const handleRadiusAttributes = (response, res) => {

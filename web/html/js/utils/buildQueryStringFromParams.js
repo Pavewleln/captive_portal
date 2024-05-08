@@ -9,6 +9,7 @@ function buildQueryStringFromParams() {
     const client_ip = cookieParams['client-ip'];
     const client_mac = cookieParams['client-mac'];
     const ap_ip = cookieParams['ap-ip'];
+    const ap_port = cookieParams['ap-port'];
     const ap_mac = cookieParams['ap-mac'];
     const ac_ip = cookieParams['ac-ip'];
     const ac_mac = cookieParams['ac-mac'];
@@ -20,6 +21,7 @@ function buildQueryStringFromParams() {
     params.append('client-ip', client_ip);
     params.append('client-mac', client_mac);
     params.append('ap-ip', ap_ip);
+    params.append('ap-port', ap_port);
     params.append('ap-mac', ap_mac);
     params.append('ac-ip', ac_ip);
     params.append('ac-mac', ac_mac);

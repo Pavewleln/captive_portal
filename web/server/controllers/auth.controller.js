@@ -3,26 +3,43 @@ import {radiusConfig} from "../config/radius.config.js";
 import {db} from "../config/db.config.js";
 import {extractRequestParams, handleRadiusAttributes,} from "../config/login.config.js";
 import {receiveRadiusResponse, sendRadiusRequest} from "../utils/radiusProcessing.js";
+import Pepper from "chilli-pepper";
 
 dotenv.config();
 
 class Auth {
     async login(req, res) {
         const {username, password} = req.body
-        const {clientMac, redirectUrl} = extractRequestParams(req);
+        const {clientMac, apIp, apPort} = extractRequestParams(req);
+
+        var pepper = Pepper({
+            host: apIp,
+            port: apPort
+        });
 
         try {
-            const request = {
-                code: 'Access-Request',
-                secret: radiusConfig.secret,
-                attributes: [['User-Name', username], ['User-Password', password], ['Calling-Station-Id', clientMac]]
-            };
+            pepper.logon(username, password, function(err, data) {
 
-            await sendRadiusRequest(request);
-            const response = await receiveRadiusResponse();
-            if (response.code !== 'Access-Accept') return handleRadiusAttributes(response, res);
+                if (data.clientState === 1) {
+                    res.status(200).json({user: {username}});
+                } else {
+                    res.status(401).json({
+                        msg: "Ошибка авторизации: Проверьте верность введенных данных", error: "Аутентификация не удалась"
+                    });
+                }
+            });
+            // const request = {
+            //     code: 'Access-Request',
+            //     secret: radiusConfig.secret,
+            //     attributes: [['User-Name', username], ['User-Password', password], ['Calling-Station-Id', clientMac]]
+            // };
+            //
+            //
+            // await sendRadiusRequest(request);
+            // const response = await receiveRadiusResponse();
+            // if (response.code !== 'Access-Accept') return handleRadiusAttributes(response, res);
 
-            res.status(200).json({user: {username}});
+
         } catch (error) {
             console.log(error);
             res.status(500).json({msg: 'Ошибка сервера. Попробуйте позже', error});

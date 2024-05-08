@@ -5,6 +5,7 @@ const saveQueryStringFromParams = () => {
         document.cookie = `client-ip=${urlParams.get('ip')};`;
         document.cookie = `client-mac=${urlParams.get('mac')};`;
         document.cookie = `ap-ip=${urlParams.get('uamip')};`;
+        document.cookie = `ap-port=${urlParams.get('uamport')}`;
         document.cookie = `ap-mac=${urlParams.get('called')};`;
         document.cookie = `ac-ip=${urlParams.get('ac-ip')};`;
         document.cookie = `ac-mac=${urlParams.get('ac-mac')};`;
