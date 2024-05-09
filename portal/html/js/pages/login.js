@@ -1,8 +1,7 @@
 document.getElementById('google-auth-link').addEventListener("click", async () => {
     try {
         const response = await fetch(`${url}/account/oauth/google/request?` + buildQueryStringFromParams(), {
-            method: "POST",
-            headers: {
+            method: "POST", headers: {
                 "Content-Type": "application/json",
             }
         });
@@ -16,29 +15,29 @@ document.getElementById('google-auth-link').addEventListener("click", async () =
 
 document.getElementById("loginForm").addEventListener("submit", async (event) => {
     event.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
 
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    try {
-        const response = await fetch(`${url}/account/login?` + buildQueryStringFromParams(), {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({username, password})
-        });
+    chilliController.host = urlParams.get('uamip');
+    chilliController.port = urlParams.get('uamport');
+    chilliController.interval = 60;
 
-        const data = await response.json();
-        if (data.user && data.user.username) {
-            window.location.href = "index.html";
-        } else {
-            showToast(data.msg || "Ошибка авторизации. Проверьте правильность введенных данных");
-        }
-    } catch (error) {
-        showToast(error.message || "Ошибка авторизации. Проверьте правильность введенных данных", error);
-    }
+    chilliController.onError = handleErrors;
+    chilliController.onUpdate = updateUI;
+
+        chilliController.logon(username, password);
 });
 
+function updateUI(cmd) {
+    alert('You called the method' + cmd + '\n Your current state is =' + chilliController.clientState);
+}
+
+function handleErrors(code) {
+    alert('The last contact with the Controller failed. Error code =' + code);
+}
+
+chilliController.refresh();
 
 
 saveQueryStringFromParams();
