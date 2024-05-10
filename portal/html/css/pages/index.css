@@ -1,14 +1,40 @@
 /* link <a> block with class "button" */
 .button-blue {
     display: inline-block;
+    width: 40%;
+    margin: auto;
+}
+.btn-auth-img{
+    width: 50px;
+    height: 50px;
+    margin: 10px;
 }
 
 /* block "authenticated" modifier for block "block" */
 .authenticated-block {
     margin-top: 20px;
 }
+/* Общие стили для <p> */
+.login-message {
+    font-family: Arial, sans-serif; /* Шрифт */
+    font-size: 16px; /* Размер шрифта */
+    margin: 10px; /* Отступ снизу */
+}
 
-/* modifier "button" for block "authenticated-block" */
-.authenticated-block__button {
-    background-color: #e74c3c;
+/* Стили для ссылки */
+.login-link {
+    color: #3498db; /* Цвет ссылки */
+    text-decoration: underline; /* Подчеркивание ссылки */
+    cursor: pointer; /* Изменение курсора при наведении */
+}
+
+/* Стили для ссылки при наведении */
+.login-link:hover {
+    color: #2980b9; /* Цвет ссылки при наведении */
+}
+
+/* Стили для жирного текста */
+.login-text {
+    font-weight: bold; /* Жирный шрифт */
+    margin-right: 5px; /* Отступ справа */
 }

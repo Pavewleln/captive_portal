@@ -105,7 +105,7 @@ select:focus {
     position: relative;
 }
 
-label {
+.input-container > label {
     display: block;
     margin-bottom: 5px;
     font-weight: lighter;

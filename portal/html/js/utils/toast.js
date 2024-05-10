@@ -16,4 +16,3 @@ function showToast(message, error) {
     });
     if(error) console.error(error);
 }
-

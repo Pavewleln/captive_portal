@@ -8,7 +8,7 @@ document.getElementById('logout').addEventListener('click', async () => {
         });
 
         if (response.ok) {
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
         } else {
             showToast('Ошибка выхода из системы', null);
         }

@@ -1,6 +1,40 @@
+function hideAllShowWelcome() {
+    document.getElementById('welcome_login').style.display = 'block';
+    document.getElementById('successful_login').style.display = 'none';
+    document.getElementById('login_form').style.display = 'none';
+}
+
+// Показываем login_form после принятия условий
+function showLoginForm() {
+    document.getElementById('welcome_login').style.display = 'none';
+    document.getElementById('login_form').style.display = 'block';
+}
+
+function showSuccessfullyLogin() {
+    document.getElementById('welcome_login').style.display = 'none';
+    document.getElementById('login_form').style.display = 'none';
+    document.getElementById('successful_login').style.display = 'block';
+}
+
+// Проверяем состояние согласия при загрузке страницы
+function checkConsentAndDisplay() {
+    if (localStorage.getItem('userConsent')) {
+        showLoginForm();
+    } else {
+        hideAllShowWelcome();
+    }
+}
+
+// Обновляем обработчик событий для кнопки
+document.getElementById('show_login_form').addEventListener('click', function () {
+    localStorage.setItem('userConsent', 'true');
+    showLoginForm();
+});
+
+
 document.getElementById('google-auth-link').addEventListener("click", async () => {
     try {
-        const response = await fetch(`${url}/account/oauth/google/request?` + buildQueryStringFromParams(), {
+        const response = await fetch(`${url}/account/oauth/google/request`, {
             method: "POST", headers: {
                 "Content-Type": "application/json",
             }
@@ -13,31 +47,32 @@ document.getElementById('google-auth-link').addEventListener("click", async () =
     }
 });
 
-document.getElementById("loginForm").addEventListener("submit", async (event) => {
+document.getElementById("login_form").addEventListener("submit", async (event) => {
     event.preventDefault();
-    const urlParams = new URLSearchParams(window.location.search);
 
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    chilliController.host = urlParams.get('uamip');
-    chilliController.port = urlParams.get('uamport');
-    chilliController.interval = 60;
 
     chilliController.onError = handleErrors;
     chilliController.onUpdate = updateUI;
 
-        chilliController.logon(username, password);
+    chilliController.logon(username, password);
 });
 
-function updateUI(cmd) {
-    alert('You called the method' + cmd + '\n Your current state is =' + chilliController.clientState);
+function updateUI() {
+    if (chilliController.clientState === 1) {
+        showSuccessfullyLogin();
+    } else if (chilliController.clientState === 0 && chilliController.command === 'logon') {
+        showToast('Введенные данные неверны', chilliController.clientState);
+    }
 }
 
 function handleErrors(code) {
-    alert('The last contact with the Controller failed. Error code =' + code);
+    showToast('Ошибка запроса: ' + code, code);
 }
 
-chilliController.refresh();
+document.addEventListener('DOMContentLoaded', () => {
+    checkConsentAndDisplay();
+    chilliController.refresh();
+});
 
-
-saveQueryStringFromParams();
