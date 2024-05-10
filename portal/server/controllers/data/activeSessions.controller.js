@@ -1,8 +1,5 @@
 import {db} from "../../config/db.config.js";
 import fs from "fs";
-import {radiusConfig} from "../../config/radius.config.js";
-import {receiveRadiusResponse, sendRadiusRequest} from "../../utils/radiusProcessing.js";
-import {handleRadiusAttributes} from "../../config/login.config.js";
 
 class ActiveSessions {
     async get(req, res) {
@@ -31,20 +28,6 @@ class ActiveSessions {
         const acctsessionid = req.params.acctsessionid;
         console.log(acctsessionid);
         try {
-            const request = {
-                code: 'Access-Request',
-                secret: radiusConfig.secret,
-                attributes: [['Acct-Session-Id', acctsessionid], ['Acct-Terminate-Cause', 'User-Request']]
-            };
-
-            await sendRadiusRequest(request);
-            const response = await receiveRadiusResponse();
-
-            if (response.code !== 'Access-Accept') handleRadiusAttributes(response, res);
-
-            // await db.query('BEGIN');
-            // await db.query('UPDATE radacct SET acctstoptime = now() WHERE acctsessionid = $1', [acctsessionid]);
-            // await db.query('COMMIT');
             res.status(200).json({msg: "Пользователь успешно отключен"});
         } catch (error) {
             await db.query('ROLLBACK');
