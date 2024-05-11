@@ -1,3 +1,35 @@
+.header__container {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+.header__title {
+    margin: 0
+}
+
+.logout {
+    color: #f00;
+    font-size: 14px;
+    font-weight: 700;
+    background: none
+}
+
+.logout:hover {
+    text-decoration: underline;
+    cursor: pointer
+}
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 1em;
+    text-align: center
+}
+
+
+
 /*============= sidebar =============*/
 
 .sidebar {
@@ -111,18 +143,6 @@
     opacity: 0.7;
 }
 
-.page__controls-refresh {
-}
-
-.page__controls-add {
-}
-
-.page__controls-remove {
-}
-
-.page__controls-edit {
-}
-
 .page__controls-refresh.active {
     animation: rotate 1s infinite linear;
 }
@@ -152,7 +172,7 @@
 
 .table__container {
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: auto;
     max-height: 100vh;
     height: 80vh;
 }
@@ -163,12 +183,12 @@
 }
 
 .table__container::-webkit-scrollbar-thumb {
-    background-color: #f2f7f8;
+    background-color: #d9e4e7;
     border-radius: 4px;
 }
 
 .table__container::-webkit-scrollbar-thumb:hover {
-    background-color: #f2f7f8;
+    background-color: #d9e4e7;
 }
 
 table {
@@ -242,32 +262,6 @@ table td {
 
 .tooltip__controls button:hover {
     opacity: 0.7;
-}
-
-/*============= pagination =============*/
-
-.pagination {
-    margin: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.pagination a {
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color .3s;
-}
-
-.pagination a.active {
-    background-color: #3498db;
-    color: white;
-}
-
-.pagination a:hover:not(.active) {
-    background-color: #ddd;
 }
 
 /*============= media =============*/

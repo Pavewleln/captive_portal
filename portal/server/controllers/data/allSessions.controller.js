@@ -53,9 +53,9 @@ class AllSessions {
                 sqlQuery += ` WHERE ${filters.join(' AND ')}`;
             }
             const query = await db.query(sqlQuery);
-            fs.writeFileSync('exports/viewSessions.json', JSON.stringify(query.rows));
+            fs.writeFileSync('exports/allSessions.json', JSON.stringify(query.rows));
 
-            res.download('exports/viewSessions.json');
+            res.download('exports/allSessions.json');
         } catch (error) {
             console.log(error);
             res.status(500).json({msg: 'Ошибка экспорта данных. Попробуйте позже', error});

@@ -1,4 +1,4 @@
-document.getElementById('exportJSONEventsButton').addEventListener('click', exportEvents)
+document.getElementById('export_json_events_button').addEventListener('click', exportEvents)
 
 refreshButton.addEventListener('click', getEvents);
 

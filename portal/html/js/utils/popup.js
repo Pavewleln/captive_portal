@@ -1,19 +1,24 @@
-/*================= popup =================*/
+const closeAllPopups = () => {
+    document.querySelectorAll('.popup').forEach((popup) => {
+        popup.style.display = 'none';
+    });
+}
 
-const addModal = document.getElementById("addRadCheckPopup");
-const openAddRadCheckButton = document.getElementById("openAddRadCheckPopupButton");
-const closeAddRadCheckPopupButton = document.getElementById("closeAddRadCheckPopupButton");
+/*================= toast =================*/
 
-openAddRadCheckButton.addEventListener('click', () => {
-    addModal.style.display = "block";
-});
+function showToast(message, error) {
+    const toastElement = document.getElementById("toast");
+    const toastMessage = document.getElementById("toast_message");
 
-closeAddRadCheckPopupButton.addEventListener('click', () => {
-    addModal.style.display = "none";
-});
+    toastElement.style.display = "block";
+    toastMessage.innerText = message;
 
-addModal.addEventListener('click', (event) => {
-    if (event.target === addModal) {
-        addModal.style.display = "none";
-    }
-});
+    setTimeout(function() {
+        toastElement.style.display = "none";
+    }, 3000);
+
+    toastElement.addEventListener("click", function() {
+        toastElement.style.display = "none";
+    });
+    if(error) console.error(error);
+}

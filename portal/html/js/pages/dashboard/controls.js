@@ -1,6 +1,6 @@
 /*============= Обновить таблицу =============*/
 
-const refreshButton = document.getElementById("refreshButton");
+const refreshButton = document.getElementById("refresh_button");
 
 function toggleRefreshButton(isActive) {
     if (isActive) {
@@ -10,6 +10,6 @@ function toggleRefreshButton(isActive) {
     }
 }
 
-document.getElementById("dashboardLogout").addEventListener("click", () => {
+document.getElementById("dashboard_logout").addEventListener("click", () => {
     // window.location.href = "/captive_portal/html/admin.html";
 });

@@ -55,9 +55,9 @@ class Users {
 
                 userData.push(user);
             }
-            fs.writeFileSync('exports/credentials.json', JSON.stringify(userData));
+            fs.writeFileSync('exports/users.json', JSON.stringify(userData));
 
-            res.download('exports/credentials.json');
+            res.download('exports/users.json');
         } catch (error) {
             console.log(error);
             res.status(500).json({msg: 'Ошибка экспорта данных. Попробуйте позже', error});
@@ -107,13 +107,13 @@ class Users {
                 });
             }
 
-            const newUser = await db.query(`INSERT INTO radcheck (username, attribute, op, value) VALUES ($1, $2, $3, $4) RETURNING username, value AS password`, [username, 'Cleartext-Password', ':=', password]);
-            await db.query('INSERT INTO radcheck (username, attribute, op, value) VALUES ($1, $2, $3, $4)', [username, 'Service-Type', ':=', role]);
+            await db.query(`INSERT INTO radcheck (username, attribute, op, value) VALUES ($1, $2, $3, $4)`, [username, 'Cleartext-Password', ':=', password]);
+            await db.query(`INSERT INTO radcheck (username, attribute, op, value) VALUES ($1, $2, $3, $4)`, [username, 'Service-Type', ':=', role]);
 
-            await db.query('INSERT INTO macs (username, callingstationid) VALUES ($1, $2)', [username, mac]);
+            await db.query('INSERT INTO macs (username, callingstationid) VALUES ($1, $2)', [username, mac || "-"]);
 
             await db.query('COMMIT');
-            res.status(201).json(newUser.rows[0]);
+            res.status(201).json({username, password});
         } catch (error) {
             console.log(error);
             await db.query('ROLLBACK');

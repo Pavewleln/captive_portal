@@ -4,7 +4,6 @@ import OAuthRouter from './oauth.js'
 
 const router = express.Router();
 router.use('/oauth', OAuthRouter)
-router.post('/login', auth.login);
 router.post('/admin', auth.admin);
 
 export default router;

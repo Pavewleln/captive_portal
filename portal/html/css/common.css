@@ -1,3 +1,51 @@
+/*==================== fonts ====================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+body {
+    font-family: "Roboto", "Open-Sans";
+    font-size: 14px;
+}
+
+/*==================== null ====================*/
+
+* {
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+html,
+body {
+    height: 100%;
+}
+body {
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+a {
+    color: inherit;
+}
+a:link,
+a:visited {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+ul li {
+    list-style: none;
+}
+img {
+    vertical-align: top;
+}
+
 /*==================== containers ====================*/
 
 .wrapper {

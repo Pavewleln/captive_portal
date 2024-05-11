@@ -1,4 +1,4 @@
-/*================= popup default =================*/
+/*================= popup =================*/
 .popup {
     display: none;
     position: fixed;
@@ -35,9 +35,6 @@
     width: 100%;
 }
 
-
-/*================= popup__delete =================*/
-
 .popup__delete {
     position: absolute;
     background-color: #ffffff;
@@ -66,7 +63,7 @@
     opacity: 0.7;
 }
 
-/*================= toast error =================*/
+/*================= toast =================*/
 
 .toast {
     position: fixed;

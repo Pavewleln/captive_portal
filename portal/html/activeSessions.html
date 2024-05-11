@@ -4,13 +4,9 @@
     <title>D-Link</title>
     <meta charset="UTF-8">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/null.css">
     <link rel="stylesheet" href="css/popup.css">
     <link rel="stylesheet" href="css/pages/dashboard.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/footer.css">
     <link rel="shortcut icon" href="assets/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -19,56 +15,53 @@
     <header class="header">
         <div class="header__container">
             <h2 class="header__title">Панель администратора</h2>
-            <button class="logout" id="dashboardLogout">Прервать сессию</button>
+            <button class="logout" id="dashboard_logout">Прервать сессию</button>
         </div>
     </header>
     <nav class="sidebar">
         <ul>
             <a href="users.html">
-                <li id="showUsers">Управление пользователями</li>
+                <li id="show_users">Управление пользователями</li>
             </a>
             <a href="activeSessions.html">
-                <li id="showActiveSessions">Активные сессии</li>
+                <li id="show_active_sessions">Активные сессии</li>
             </a>
             <a href="allSessions.html">
-                <li id="showAllSessions">Все сессии</li>
+                <li id="show_all_sessions">Все сессии</li>
             </a>
             <a href="events.html">
-                <li id="showEvents">События портала</li>
+                <li id="show_events">События портала</li>
             </a>
         </ul>
     </nav>
     <div class="navigation__mobile">
-        <button class="navigation__mobile-navigation" id="menuButton">
+        <button class="navigation__mobile-navigation" id="menu_button">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
         </button>
     </div>
-    <main class="page" id="mainContent">
+    <main class="page" id="main_content">
         <div class="page__controls">
             <div>
-                <button class="page__controls-export" id="exportJSONActiveSessionsButton">
+                <button class="page__controls-export" id="export_json_active_sessions_button">
                     <img alt="Экспортировать" src="assets/img/exportButton.svg"/>
                 </button>
             </div>
             <div class="page__controls-right">
-                <button class="page__controls-refresh" id="refreshButton">
+                <button class="page__controls-refresh" id="refresh_button">
                     <img alt="Обновить" src="assets/img/refreshButton.svg"/>
                 </button>
             </div>
         </div>
         <div class="table__container">
-            <div id="activeSessions">
-                <table class="">
+            <div id="active_sessions">
+                <table>
                     <thead>
                     </thead>
                     <tbody>
-
                     </tbody>
                 </table>
-                <div class="pagination">
-                </div>
             </div>
         </div>
     </main>
@@ -76,14 +69,13 @@
 
 <div class="toast">
     <span class="toast__close">&times;</span>
-    <div id="toastMessage" class="toast__message">
+    <div id="toast_message">
     </div>
 </div>
 
-<script src="js/utils/toast.js"></script>
+<script src="js/lib/ChilliLibrary.js"></script>
 <script src="js/utils/config.js"></script>
-<script src="js/utils/closeAllPopups.js"></script>
-<script src="js/utils/buildQueryStringFromParams.js"></script>
+<script src="js/utils/popup.js"></script>
 <script src="js/pages/dashboard/table.js"></script>
 <script src="js/pages/dashboard/sidebar.js"></script>
 <script src="js/pages/dashboard/controls.js"></script>

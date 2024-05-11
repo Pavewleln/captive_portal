@@ -4,16 +4,16 @@ document.addEventListener('DOMContentLoaded', function() {
     let pageName, navigationItem;
     switch(currentPage) {
         case 'users.html':
-            pageName = 'showUsers';
+            pageName = 'show_users';
             break;
         case 'activeSessions.html':
-            pageName = 'showActiveSessions';
+            pageName = 'show_active_sessions';
             break;
         case 'allSessions.html':
-            pageName = 'showAllSessions';
+            pageName = 'show_all_sessions';
             break;
         case 'events.html':
-            pageName = 'showEvents';
+            pageName = 'show_events';
             break;
         default:
             return;
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.querySelector('.sidebar');
-    const menuButton = document.getElementById('menuButton');
+    const menuButton = document.getElementById('menu_button');
     const mobileNavigation = document.querySelector('.navigation__mobile');
 
     menuButton.addEventListener('click', function() {

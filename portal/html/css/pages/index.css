@@ -38,3 +38,8 @@
     font-weight: bold; /* Жирный шрифт */
     margin-right: 5px; /* Отступ справа */
 }
+
+.button-blue {
+    width: 90%;
+    margin: auto;
+}

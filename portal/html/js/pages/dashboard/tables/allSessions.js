@@ -1,26 +1,26 @@
-document.getElementById('fromDateField').addEventListener('change', updateApplyButtonVisibility);
-document.getElementById('toDateField').addEventListener('change', updateApplyButtonVisibility);
-document.getElementById('usernameField').addEventListener('input', updateApplyButtonVisibility);
-document.getElementById('applyFiltersButton').addEventListener('click', applyFilters);
-document.getElementById('clearFiltersButton').addEventListener('click', clearFilters);
-document.getElementById('exportJSONAllSessionsButton').addEventListener('click', exportAllSessions);
+document.getElementById('from_date_field').addEventListener('change', updateApplyButtonVisibility);
+document.getElementById('to_date_field').addEventListener('change', updateApplyButtonVisibility);
+document.getElementById('username_field').addEventListener('input', updateApplyButtonVisibility);
+document.getElementById('apply_filters_button').addEventListener('click', applyFilters);
+document.getElementById('clear_filters_button').addEventListener('click', clearFilters);
+document.getElementById('export_json_all_sessions_button').addEventListener('click', exportAllSessions);
 
 refreshButton.addEventListener('click', getAllSessions);
 async function clearFilters() {
-    document.getElementById('fromDateField').value = '';
-    document.getElementById('toDateField').value = '';
-    document.getElementById('usernameField').value = '';
+    document.getElementById('from_date_field').value = '';
+    document.getElementById('to_date_field').value = '';
+    document.getElementById('username_field').value = '';
 
     updateApplyButtonVisibility();
     await getAllSessions();
 }
 
 function updateApplyButtonVisibility() {
-    const fromDate = document.getElementById('fromDateField').value;
-    const toDate = document.getElementById('toDateField').value;
-    const username = document.getElementById('usernameField').value;
-    const applyButton = document.getElementById('applyFiltersButton');
-    const clearButton = document.getElementById('clearFiltersButton');
+    const fromDate = document.getElementById('from_date_field').value;
+    const toDate = document.getElementById('to_date_field').value;
+    const username = document.getElementById('username_field').value;
+    const applyButton = document.getElementById('apply_filters_button');
+    const clearButton = document.getElementById('clear_filters_button');
 
     if (fromDate.trim() !== '' || toDate.trim() !== '' || username.trim() !== '') {
         applyButton.classList.add('visible');
@@ -36,9 +36,9 @@ function updateApplyButtonVisibility() {
 }
 
 async function applyFilters() {
-    const fromDate = document.getElementById('fromDateField').value;
-    const toDate = document.getElementById('toDateField').value;
-    const username = document.getElementById('usernameField').value;
+    const fromDate = document.getElementById('from_date_field').value;
+    const toDate = document.getElementById('to_date_field').value;
+    const username = document.getElementById('username_field').value;
 
     await getAllSessions(fromDate, toDate, username);
 }
@@ -72,7 +72,7 @@ async function getAllSessions(fromDate, toDate, username) {
             },
         })
         const data = await response.json();
-        fillTable('allSessions', data);
+        fillTable('all_sessions', data);
     } catch (error) {
         showToast('Произошла ошибка при отправке запроса. Пожалуйста, повторите попытку.', error);
     } finally {
@@ -93,7 +93,7 @@ async function exportAllSessions () {
         const exportUrl = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = exportUrl;
-        a.download = 'all-sessions.json';
+        a.download = 'allSessions.json';
         document.body.appendChild(a);
         a.click();
 

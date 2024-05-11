@@ -1,5 +1,4 @@
-document.getElementById('exportJSONActiveSessionsButton').addEventListener('click', exportActiveSessions)
-
+document.getElementById('export_json_active_sessions_button').addEventListener('click', exportActiveSessions)
 refreshButton.addEventListener('click', getActiveSessions);
 
 async function getActiveSessions() {
@@ -11,7 +10,7 @@ async function getActiveSessions() {
             }
         })
         const data = await response.json();
-        fillTable('activeSessions', data);
+        fillTable('active_sessions', data);
     } catch (error) {
         showToast('Произошла ошибка при отправке запроса. Пожалуйста, повторите попытку.', error);
     } finally {
@@ -32,7 +31,7 @@ async function exportActiveSessions() {
         const exportUrl = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = exportUrl;
-        a.download = 'active-sessions.json';
+        a.download = 'activeSessions.json';
         document.body.appendChild(a);
         a.click();
 
@@ -73,7 +72,7 @@ async function handleEndSessionClick(row) {
 function createTooltipContent(acctsessionid) {
     return `
         <div class="tooltip__controls">
-            <button class="tooltip__controls-end-session" data-acctsessionid="${acctsessionid}" id="endSessionButton" style="color: red;">Завершить сессию</button>
+            <button class="tooltip__controls-end-session" data-acctsessionid="${acctsessionid}" id="end_session_button" style="color: red;">Завершить сессию</button>
         </div>
     `;
 }
@@ -108,9 +107,6 @@ function toggleTooltip(row) {
         row.insertAdjacentElement('afterend', tooltipRow);
     }
 }
-
-
-
 
 document.addEventListener('DOMContentLoaded', async () => {
     await getActiveSessions();

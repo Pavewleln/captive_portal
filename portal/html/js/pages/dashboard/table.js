@@ -37,7 +37,7 @@ function fillTable(tableName, data) {
     }
 
     const columns = Object.keys(data[0]);
-    if (tableName !== 'allSessions' && tableName !== 'events') {
+    if (tableName !== 'all_sessions' && tableName !== 'events') {
         columns.push('');
     }
 
