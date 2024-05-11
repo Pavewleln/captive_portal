@@ -97,8 +97,9 @@ document.getElementById("admin_form").addEventListener("submit", async (event) =
 });
 
 document.getElementById("logoff").addEventListener("click", async () => {
+    chilliController.onError = handleErrors;
+    chilliController.onUpdate = updateUILogin;
     chilliController.logoff();
-
 })
 
 function updateUILogin() {
@@ -108,6 +109,8 @@ function updateUILogin() {
         showToast('Введенные данные неверны', chilliController.clientState);
     } else if (chilliController.clientState === 0 && chilliController.command === 'logoff') {
         showToast('Сеанс окончен', chilliController.clientState);
+        showUserForm();
+    }else {
         showUserForm();
     }
 }
@@ -121,6 +124,9 @@ function updateUIAdmin() {
         showToast('Сеанс окончен', chilliController.clientState);
         window.location.href = "index.html";
         showUserForm();
+    } else {
+        window.location.href = "index.html";
+        showUserForm();
     }
 }
 
@@ -130,5 +136,8 @@ function handleErrors(code) {
 
 document.addEventListener('DOMContentLoaded', () => {
     showUserForm();
+    chilliController.onUpdate = updateUILogin;
+    chilliController.onError = handleErrors;
+    chilliController.debug = true;
     chilliController.refresh();
 });

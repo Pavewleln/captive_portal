@@ -11,5 +11,33 @@ function toggleRefreshButton(isActive) {
 }
 
 document.getElementById("dashboard_logout").addEventListener("click", () => {
-    // window.location.href = "/captive_portal/html/admin.html";
+    chilliController.onError = handleErrors;
+    chilliController.onUpdate = updateUIAdmin;
+    chilliController.logoff();
+});
+
+function updateUIAdmin() {
+    if (chilliController.clientState === 1) {
+        window.location.href = "users.html";
+    } else if (chilliController.clientState === 0 && chilliController.command === 'logon') {
+        showToast('Введенные данные неверны', chilliController.clientState);
+    } else if (chilliController.clientState === 0 && chilliController.command === 'logoff') {
+        showToast('Сеанс окончен', chilliController.clientState);
+        window.location.href = "index.html";
+        showUserForm();
+    } else {
+        window.location.href = "index.html";
+        showUserForm();
+    }
+}
+
+function handleErrors(code) {
+    showToast('Ошибка: ' + code, code);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    chilliController.onUpdate = updateUIAdmin;
+    chilliController.onError = handleErrors;
+    chilliController.debug = true;
+    chilliController.refresh();
 });
