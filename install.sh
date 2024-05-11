@@ -1,16 +1,16 @@
 #! /bin/bash
 
-# Update & Upgrade
-sudo apt-get update -y
-sudo apt-get upgrade -y
-
-# Install modul
-sudo apt-get install -y wget curl npm
-
 read -p "Create New Database : " databases
 echo ''
 read -sp "Password Database : " pswdsql
 echo ''
+
+# Update & Upgrade
+sudo apt-get update -y
+sudo apt-get upgrade -y
+
+# Install module
+sudo apt-get install -y wget curl npm
 
 # Change database
 # Install PostgreSQL

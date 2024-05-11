@@ -17,7 +17,7 @@ function showAdminForm() {
     adminLoginForm.style.display = 'block';
 }
 
-function showSuccessfullyLogin(){
+function showSuccessfullyLogin() {
     userLoginForm.style.display = 'none';
     adminLoginForm.style.display = 'none';
     successfullyLoginForm.style.display = 'block'
@@ -33,12 +33,14 @@ adminLink.addEventListener('click', (e) => {
     showAdminForm();
 });
 
-document.getElementById('google_auth_link').addEventListener("click", async () => {
+document.getElementById('login_google_auth_link').addEventListener("click", async () => {
     const urlParams = new URLSearchParams(window.location.search);
+
     function getCookie(name) {
         let cookie = document.cookie.split('; ').find(row => row.startsWith(name + '='));
         return cookie ? cookie.split('=')[1] : null;
     }
+
     try {
         const response = await fetch(`${url}/account/oauth/google/request?client-mac=${urlParams.get('mac')}`, {
             method: "POST", headers: {
@@ -76,11 +78,9 @@ document.getElementById("admin_form").addEventListener("submit", async (event) =
 
     try {
         const response = await fetch(`${url}/account/admin`, {
-            method: "POST",
-            headers: {
+            method: "POST", headers: {
                 "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ username, password })
+            }, body: JSON.stringify({username, password})
         });
 
         const data = await response.json();
@@ -96,23 +96,36 @@ document.getElementById("admin_form").addEventListener("submit", async (event) =
     }
 });
 
+document.getElementById("logoff").addEventListener("click", async () => {
+    chilliController.logoff();
+
+})
+
 function updateUILogin() {
     if (chilliController.clientState === 1) {
         showSuccessfullyLogin();
     } else if (chilliController.clientState === 0 && chilliController.command === 'logon') {
         showToast('Введенные данные неверны', chilliController.clientState);
+    } else if (chilliController.clientState === 0 && chilliController.command === 'logoff') {
+        showToast('Сеанс окончен', chilliController.clientState);
+        showUserForm();
     }
 }
+
 function updateUIAdmin() {
     if (chilliController.clientState === 1) {
         window.location.href = "users.html";
     } else if (chilliController.clientState === 0 && chilliController.command === 'logon') {
         showToast('Введенные данные неверны', chilliController.clientState);
+    } else if (chilliController.clientState === 0 && chilliController.command === 'logoff') {
+        showToast('Сеанс окончен', chilliController.clientState);
+        window.location.href = "index.html";
+        showUserForm();
     }
 }
 
 function handleErrors(code) {
-    showToast('Ошибка запроса: ' + code, code);
+    showToast('Ошибка: ' + code, code);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

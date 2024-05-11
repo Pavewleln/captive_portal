@@ -14,9 +14,8 @@
 <main class="page">
     <div class="container__form">
         <div id="successfully_login">
-            <h2>Аутентифицированный пользователь</h2>
-            <p>Вы вошли в систему как <span id="username"></span></p>
-            <button class="button-red" id="logout">Выйти</button>
+            <h2>Вы успешно вошли в систему</h2>
+            <button class="button-red" id="logoff">Прервать сеанс</button>
         </div>
         <div>
             <form id="login_form">
@@ -31,7 +30,7 @@
                 </div>
                 <button type="submit" class="button-blue">Войти</button>
                 <div class="oauth">
-                    <a id="google_auth_link" href="#" class="oauth-google">
+                    <a id="login_google_auth_link" href="#" class="oauth-google">
                         <img class="btn-auth-img" src="assets/img/oauth-google.png"
                              alt="google sign in"/>
                     </a>
