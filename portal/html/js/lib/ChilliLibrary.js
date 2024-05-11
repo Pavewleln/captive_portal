@@ -1,7 +1,3 @@
-
-
-
-
 /**
  *   ChilliLibrary.js
  *   V2.0

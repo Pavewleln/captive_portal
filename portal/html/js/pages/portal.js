@@ -140,4 +140,5 @@ document.addEventListener('DOMContentLoaded', () => {
     chilliController.onError = handleErrors;
     chilliController.debug = true;
     chilliController.refresh();
+    saveQueryParams();
 });

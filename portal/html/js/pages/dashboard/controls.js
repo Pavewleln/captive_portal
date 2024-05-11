@@ -36,8 +36,9 @@ function handleErrors(code) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    addQueryParamsToUrl();
     chilliController.onUpdate = updateUIAdmin;
     chilliController.onError = handleErrors;
     chilliController.debug = true;
     chilliController.refresh();
-});
+})
