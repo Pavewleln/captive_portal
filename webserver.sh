@@ -9,7 +9,7 @@ then
     echo ''
     read -sp "PostgreSQL password : " paswd
 else
-    paswd=\$1
+    paswd=$1
 fi
 [[ -z $paswd ]] && { echo "Password is required!"; exit 1; }
 
@@ -18,7 +18,7 @@ then
     echo ''
     read -p "PostgreSQL database name : " db
 else
-    db=\$2
+    db=$2
 fi
 [[ -z $db ]] && { echo "Database name is required!"; exit 1; }
 
@@ -33,21 +33,10 @@ sudo cp -r ./portal/html /var/www/html
 sed -i "s|WEB_URL=http://localhost:80|WEB_URL=http://$ip_address:80|" ~/captive_portal/portal/server/.env
 sed -i "s|REDIRECT_OAUTH_URL=http://localhost:4000|REDIRECT_OAUTH_URL=http://$ip_address:4000|" ~/captive_portal/portal/server/.env
 sed -i "s|BACKEND_URL=http://localhost:4000|BACKEND_URL=http://$ip_address:4000|" ~/captive_portal/portal/server/.env
-sed -i "s|POSTGRESQL_DATABASE=radius|POSTGRESQL_DATABASE=$db|" ~/captive_portal/portal/server/.env
-sed -i "s|POSTGRESQL_PASSWORD=radpass|POSTGRESQL_PASSWORD=$paswd|" ~/captive_portal/portal/server/.env
+sed -i "s|POSTGRESQL_DATABASE=portal|POSTGRESQL_DATABASE=$db|" ~/captive_portal/portal/server/.env
+sed -i "s|POSTGRESQL_PASSWORD=portalpass|POSTGRESQL_PASSWORD=$paswd|" ~/captive_portal/portal/server/.env
 
 # Install dependencies and start the server
 cd ~/captive_portal/portal/server
-echo "Starting the server..."
 npm install
-npm run serve &
-sleep 5  # Wait for server to start
-if curl -s http://$ip_address:4000 >/dev/null; then
-    echo "The server is now running."
-    echo ">>> Finished configuring and starting the web server <<<"
-    exit 0  # Server started successfully, exit the script
-else
-    echo "Failed to start the server."
-    exit 1  # Exit the script with an error
-fi
-
+npm run serve
