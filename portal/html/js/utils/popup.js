@@ -7,8 +7,8 @@ const closeAllPopups = () => {
 /*================= toast =================*/
 
 function showToast(message, error) {
-    const toastElement = document.getElementById("toast");
-    const toastMessage = document.getElementById("toast_message");
+    const toastElement = document.getElementsByClassName("toast")[0];
+    const toastMessage = document.getElementsByClassName("toast__message")[0];
 
     toastElement.style.display = "block";
     toastMessage.innerText = message;

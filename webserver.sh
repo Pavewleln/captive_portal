@@ -38,7 +38,12 @@ sed -i "s|const url = 'http://localhost:4000'|const url = 'http://$ip_address:40
 sudo rm -rf /var/www/html
 sudo cp -r ./portal/html /var/www/html
 
+echo "Starting server"
+
 # Install dependencies and start the server
 cd ~/captive_portal/portal/server
+echo "Starting the server..."
 npm install
-npm run serve
+npm run serve &
+sleep 5
+exit 0
