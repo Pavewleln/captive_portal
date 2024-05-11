@@ -1,8 +1,18 @@
 #!/bin/bash
 echo ">>> Installing FreeRadius <<<"
+if [ -z $1 ]
+then
+	echo ''
+	read -sp "Confirm PostgreSQL password : " paswd
+else
+	paswd=$1
+fi
+[[ -z $paswd ]] && { echo "Password is required!"; exit 1; }
 
 # default version
 RADIUS_VERSION='3.0'
+
+
 
 # Install FreeRadius
 sudo apt-get install -y freeradius freeradius-utils freeradius-postgresql
@@ -15,13 +25,23 @@ cd
 
 # Create Database PostgreSQL
 echo ">>> Create Database"
-sudo -u postgres psql -c "CREATE DATABASE radius;"
+if [ -z $2 ]
+then
+	echo ''
+	read -p "Create database name : " db
+else
+	db=$2
+fi
+[[ -z $db ]] && { echo "Database is required!"; exit 1; }
+
+# Create Database PostgreSQL
+echo ">>> Create Database"
+sudo -u postgres psql -c "CREATE DATABASE $db;"
 
 # Import Schema
-sudo -u postgres psql radius < ~/captive_portal/config/postgresql/schema.sql
-sudo -u postgres psql radius < ~/captive_portal/config/postgresql/setup.sql
-sudo -u postgres psql radius < ~/captive_portal/config/postgresql/data.sql
-
+sudo -u postgres psql $db < ~/captive_portal/config/postgresql/schema.sql
+sudo -u postgres psql $db < ~/captive_portal/config/postgresql/setup.sql
+sudo -u postgres psql $db < ~/captive_portal/config/postgresql/data.sql
 
 # Config Sites Default
 sudo mv /etc/freeradius/$RADIUS_VERSION/sites-available/default /etc/freeradius/$RADIUS_VERSION/sites-available/default.back
@@ -34,6 +54,8 @@ sudo cp ~/captive_portal/config/inner-tunnel /etc/freeradius/$RADIUS_VERSION/sit
 # Config database
 sudo mv /etc/freeradius/$RADIUS_VERSION/mods-available/sql /etc/freeradius/$RADIUS_VERSION/mods-available/sql.back
 sudo cp ~/captive_portal/config/postgresql/sql /etc/freeradius/$RADIUS_VERSION/mods-available/sql
+sed -i "s/portalpass/$paswd/" /etc/freeradius/$RADIUS_VERSION/mods-available/sql
+sed -i "s/portaldb/$db/" /etc/freeradius/$RADIUS_VERSION/mods-available/sql
 
 # Config sqlcounter
 sudo mv /etc/freeradius/$RADIUS_VERSION/mods-available/sqlcounter /etc/freeradius/$RADIUS_VERSION/mods-available/sqlcounter.back

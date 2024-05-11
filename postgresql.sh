@@ -1,7 +1,15 @@
 #!/bin/bash
 
 echo ">>> Installing PostgreSQL <<<"
-pswd='radius'
+if [ -z $1 ]
+then
+	echo ''
+	read -sp "Confirm PostgreSQL password : " pswd
+else
+	pswd=$1
+fi
+[[ -z $pswd ]] && { echo "Password is required!"; exit 1; }
+
 # Set some variables
 POSTGRE_VERSION=15
 

@@ -4,8 +4,8 @@ sql {
 	server = "localhost"
 	port = 5432
 	login = "radius"
-	password = "radpass"
-	radius_db = "radius"
+	password = "portalpass"
+	radius_db = "portaldb"
 	acct_table1 = "radacct"
 	acct_table2 = "radacct"
 	postauth_table = "radpostauth"
