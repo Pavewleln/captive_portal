@@ -45,6 +45,4 @@ echo "Starting server"
 cd ~/captive_portal/portal/server
 echo "Starting the server..."
 npm install
-npm run serve &
-sleep 5
-exit 0
+npm run serve

@@ -61,8 +61,8 @@ document.getElementById('login_google_auth_link').addEventListener("click", asyn
 document.getElementById("login_form").addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const username = document.getElementById("user_username").value;
+    const password = document.getElementById("user_password").value;
 
     chilliController.onError = handleErrors;
     chilliController.onUpdate = updateUILogin;
@@ -73,8 +73,8 @@ document.getElementById("login_form").addEventListener("submit", async (event) =
 document.getElementById("admin_form").addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const username = document.getElementById("admin_username").value;
+    const password = document.getElementById("admin_password").value;
 
     try {
         const response = await fetch(`${url}/account/admin`, {

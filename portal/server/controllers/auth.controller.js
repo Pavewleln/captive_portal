@@ -8,13 +8,14 @@ class Auth {
 
         const {username, password} = req.body;
         try {
-            const serviceTypeResult = await db.query('SELECT * FROM radcheck WHERE username = $1 AND attribute = $2 AND value = $3', [username, 'Service-Type', 'Administrative-Auth']);
+            const serviceTypeResult = await db.query('SELECT * FROM radcheck WHERE username = $1 AND attribute = $2 AND value = $3', [username, 'Service-Type', 'Administrative-User']);
 
-            if (serviceTypeResult.rows.length === 0) {
+            if (serviceTypeResult.rows.length <= 0) {
                 res.status(401).json({
                     msg: "Ошибка авторизации: вы не являетесь администратором",
-                    error: "Пользователь не имеет Service-Type 'Administrative'"
+                    error: "Пользователь не имеет Service-Type 'Administrative-User'"
                 });
+                return;
             }
             res.status(200).json({user: {username, password}});
         } catch (error) {
