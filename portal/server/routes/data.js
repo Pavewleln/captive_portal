@@ -22,8 +22,6 @@ router.get("/active-sessions", activeSessions.get);
 
 router.get("/active-sessions/export", activeSessions.export);
 
-router.delete('/active-sessions/disconnect/:acctsessionid', activeSessions.disconnect);
-
 router.get("/all-sessions", allSessions.get);
 
 router.get("/all-sessions/export", allSessions.export);

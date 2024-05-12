@@ -23,18 +23,6 @@ class ActiveSessions {
             res.status(500).json({msg: 'Ошибка экспорта данных. Попробуйте позже', error});
         }
     }
-
-    async disconnect(req, res) {
-        const acctsessionid = req.params.acctsessionid;
-        console.log(acctsessionid);
-        try {
-            res.status(200).json({msg: "Пользователь успешно отключен"});
-        } catch (error) {
-            await db.query('ROLLBACK');
-            console.log(error);
-            res.status(500).json({msg: 'Ошибка отключения пользователя. Попробуйте позже', error});
-        }
-    }
 }
 
 export const activeSessions = new ActiveSessions();
