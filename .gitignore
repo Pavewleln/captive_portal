@@ -1,5 +1,0 @@
-.idea
-.vscode
-
-# Ignore specific files in backend
-portal/server/node_modules/
