@@ -9,8 +9,8 @@ function setAttributesBasedOnColumnName(row, columnName, cellValue) {
         case 'username':
             row.setAttribute('data-username', cellValue);
             break;
-        case 'acctsessionid':
-            row.setAttribute('data-acctsessionid', cellValue);
+        case 'callingstationid':
+            row.setAttribute('data-macaddress', cellValue);
             break;
         default:
             break;

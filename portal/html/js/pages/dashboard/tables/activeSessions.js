@@ -48,19 +48,13 @@ async function exportActiveSessions() {
 
 async function handleEndSessionClick(row) {
     try {
-        const response = await fetch(`${url}/data/active-sessions/disconnect/${row.getAttribute('data-acctsessionid')}`, {
-            method: "DELETE", headers: {
-                "Content-Type": "application/json",
-            }
-        })
-
-        closeAllPopups();
-        const nextElement = row.nextElementSibling;
-        if (nextElement && nextElement.classList.contains('tooltip')) {
-            nextElement.remove();
-        }
-        row.remove();
-        return await response.json();
+        // chilliController.logoff(row.getAttribute('data-macaddress'));
+        // closeAllPopups();
+        // const nextElement = row.nextElementSibling;
+        // if (nextElement && nextElement.classList.contains('tooltip')) {
+        //     nextElement.remove();
+        // }
+        // row.remove();
     } catch (error) {
         showToast('Ошибка при удалении данных. Пожалуйста, повторите попытку.', error);
     }
@@ -69,10 +63,10 @@ async function handleEndSessionClick(row) {
 
 /*============= tooltip =============*/
 
-function createTooltipContent(acctsessionid) {
+function createTooltipContent(macaddress) {
     return `
         <div class="tooltip__controls">
-            <button class="tooltip__controls-end-session" data-acctsessionid="${acctsessionid}" id="end_session_button" style="color: red;">Завершить сессию</button>
+            <button class="tooltip__controls-end-session" data-macaddress="${macaddress}" id="end_session_button" style="color: red;">Завершить сессию</button>
         </div>
     `;
 }
@@ -100,7 +94,7 @@ function toggleTooltip(row) {
 
         tooltipContent.innerHTML = createTooltipContent(acctuniqueid);
 
-        const endSessionButton = tooltipContent.querySelector('#endSessionButton');
+        const endSessionButton = tooltipContent.querySelector('#end_session_button');
         endSessionButton.addEventListener('click', () => handleEndSessionClick(row));
 
         tooltipCell.appendChild(tooltipContent);
