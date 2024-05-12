@@ -43,6 +43,9 @@ sudo -u postgres psql $db < ~/captive_portal/config/postgresql/schema.sql
 sudo -u postgres psql $db < ~/captive_portal/config/postgresql/setup.sql
 sudo -u postgres psql $db < ~/captive_portal/config/postgresql/data.sql
 
+# Clients.conf
+echo -e "client all {\n    ipaddr = 0.0.0.0/0\n    secret = testing123\n}\n" >> /etc/freeradius/3.0/clients.conf
+
 # Config Sites Default
 sudo mv /etc/freeradius/$RADIUS_VERSION/sites-available/default /etc/freeradius/$RADIUS_VERSION/sites-available/default.back
 sudo cp ~/captive_portal/config/default /etc/freeradius/$RADIUS_VERSION/sites-available/default
