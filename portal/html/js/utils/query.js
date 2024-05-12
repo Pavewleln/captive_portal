@@ -8,7 +8,6 @@ function saveQueryParams(){
     localStorage.setItem('query_params', JSON.stringify(params));
 }
 
-
 function addQueryParamsToUrl() {
     const searchParams = new URLSearchParams(window.location.search);
     const params = {};
@@ -21,4 +20,10 @@ function addQueryParamsToUrl() {
     localStorage.setItem('query_params', JSON.stringify(newParams));
     const newUrl = window.location.pathname + '?' + new URLSearchParams(newParams).toString();
     window.history.replaceState({}, '', newUrl);
+}
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
 }

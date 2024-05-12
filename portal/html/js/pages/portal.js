@@ -36,11 +36,6 @@ adminLink.addEventListener('click', (e) => {
 document.getElementById('login_google_auth_link').addEventListener("click", async () => {
     const urlParams = new URLSearchParams(window.location.search);
 
-    function getCookie(name) {
-        let cookie = document.cookie.split('; ').find(row => row.startsWith(name + '='));
-        return cookie ? cookie.split('=')[1] : null;
-    }
-
     try {
         const response = await fetch(`${url}/account/oauth/google/request?client-mac=${urlParams.get('mac')}`, {
             method: "POST", headers: {
@@ -49,10 +44,7 @@ document.getElementById('login_google_auth_link').addEventListener("click", asyn
         });
 
         const data = await response.json();
-        chilliController.onError = handleErrors;
-        chilliController.onUpdate = updateUILogin;
-
-        chilliController.logon(getCookie('username'), getCookie('password'));
+        window.location.href = data.redirectUrl;
     } catch (error) {
         showToast(error.message || "Произошла ошибка при запросе авторизации через Google.", error);
     }
@@ -140,5 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
     chilliController.onError = handleErrors;
     chilliController.debug = true;
     chilliController.refresh();
+
+    const username = getCookie('username');
+    const password = getCookie('password');
+    if (username && password) {
+        chilliController.logon(username, password);
+    }
+
     saveQueryParams();
 });
