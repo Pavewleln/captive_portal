@@ -1,0 +1,98 @@
+#!/bin/sh
+# postinst script for captive_portal
+#
+# see: dh_installdeb(1)
+src_path=/root/captive_portal
+
+#radius radpass
+databases=radius
+pswdsql=radpass
+
+# усановка и настройка postgresql
+# ----------------------------------------------------------------------------------------------------------------
+
+cd /root/captive_portal/ && cat postgresql.sh |  grep -v 'sudo apt-get' > /tmp/psql.sh && chmod 755 /tmp/psql.sh 
+cd /tmp/ && ./psql.sh $pswdsql
+
+#echo ">>> Create Database $databases"
+su - postgres -c "psql -U postgres -d postgres -c \"alter user postgres with password '$pswdsql';\""
+sudo -u postgres psql -c "CREATE DATABASE $databases;"
+
+sudo -u postgres psql $databases < $src_path/config/postgresql/schema.sql
+sudo -u postgres psql $databases < $src_path/config/postgresql/schema.sql
+sudo -u postgres psql $databases < $src_path/config/postgresql/setup.sql
+sudo -u postgres psql $databases < $src_path/config/postgresql/data.sql
+
+
+# настраивается freeradius
+# ----------------------------------------------------------------------------------------------------------------
+
+RADIUS_VERSION='3.0'
+cd /etc/freeradius/$RADIUS_VERSION/mods-enabled
+ln -s /etc/freeradius/$RADIUS_VERSION/mods-available/sql sql
+ln -s /etc/freeradius/$RADIUS_VERSION/mods-available/sqlcounter sqlcounter
+
+sed -i 's/^#\s*\(.*\$INCLUDE mods-enabled\/sql\)/\1/' /etc/freeradius/$RADIUS_VERSION/radiusd.conf
+
+# Clients.conf
+echo "client all {\n    ipaddr = * \n    secret = testing123\n}\n" >> /etc/freeradius/$RADIUS_VERSION/clients.conf
+
+# Config Sites Default
+mv /etc/freeradius/$RADIUS_VERSION/sites-available/default /etc/freeradius/$RADIUS_VERSION/sites-available/default.back
+cp $src_path/config/default /etc/freeradius/$RADIUS_VERSION/sites-available/default
+
+# Config Sites Tunnel
+mv /etc/freeradius/$RADIUS_VERSION/sites-available/inner-tunnel /etc/freeradius/$RADIUS_VERSION/sites-available/inner-tunnel.back
+cp $src_path/config/inner-tunnel /etc/freeradius/$RADIUS_VERSION/sites-available/inner-tunnel
+
+# Config database
+mv /etc/freeradius/$RADIUS_VERSION/mods-available/sql /etc/freeradius/$RADIUS_VERSION/mods-available/sql.back
+cp $src_path/config/postgresql/sql /etc/freeradius/$RADIUS_VERSION/mods-available/sql
+sed -i "s/portalpass/$pswdsql/" /etc/freeradius/$RADIUS_VERSION/mods-available/sql
+sed -i "s/portaldb/$databases/" /etc/freeradius/$RADIUS_VERSION/mods-available/sql
+
+# Config sqlcounter
+mv /etc/freeradius/$RADIUS_VERSION/mods-available/sqlcounter /etc/freeradius/$RADIUS_VERSION/mods-available/sqlcounter.back
+cp $src_path/config/sqlcounter /etc/freeradius/$RADIUS_VERSION/mods-available/sqlcounter
+
+# Add query sqlcounter
+cp $src_path/config/postgresql/accessperiod.conf /etc/freeradius/$RADIUS_VERSION/mods-config/sql/counter/postgresql/accessperiod.conf
+cp $src_path/config/postgresql/quotalimit.conf /etc/freeradius/$RADIUS_VERSION/mods-config/sql/counter/postgresql/quotalimit.conf
+
+# Change Group
+chgrp -h freerad /etc/freeradius/$RADIUS_VERSION/mods-enabled/sql
+pkill radius
+
+# Start & Enable FreeRadius
+systemctl enable freeradius
+service freeradius start
+
+echo ">>> Finished Installing FreeRadius <<<"
+sleep 2
+
+# настраивается webserver.sh
+# ----------------------------------------------------------------------------------------------------------------
+
+ip_address=$(hostname -I | cut -d' ' -f1)
+# Change values in .env file
+
+sed -i "s|WEB_URL=http://localhost:80|WEB_URL=http://$ip_address:80|" $src_path/portal/server/.env                 
+sed -i "s|REDIRECT_OAUTH_URL=http://localhost:4000|REDIRECT_OAUTH_URL=http://$ip_address:4000|" $src_path/portal/server/.env
+sed -i "s|BACKEND_URL=http://localhost:4000|BACKEND_URL=http://$ip_address:4000|" $src_path/portal/server/.env
+sed -i "s|POSTGRESQL_HOST=localhost|POSTGRESQL_HOST=$ip_address|" $src_path/portal/server/.env
+sed -i "s|POSTGRESQL_DATABASE=portal|POSTGRESQL_DATABASE=$databases|" $src_path/portal/server/.env
+sed -i "s|POSTGRESQL_PASSWORD=portalpass|POSTGRESQL_PASSWORD=$pswdsql|" $src_path/portal/server/.env
+sed -i "s|const url = 'http://localhost:4000'|const url = 'http://$ip_address:4000'|" $src_path/portal/html/js/utils/config.js
+
+# Copy html folder to /var/www/html                                                                                                                                                                              
+
+rm -rf /var/www/html
+cp -r $src_path/portal/html /var/www/html
+
+echo "Starting server"
+
+# Install dependencies and start the server                                                                                                                                                                      
+cd $src_path/portal/server
+npm install
+npm install pm2 -g 
+/usr/local/bin/pm2 start $src_path/portal/server/index.js

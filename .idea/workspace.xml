@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69ac6625-1897-49d9-a17d-8e6d345a9487" name="Changes" comment="" />
+    <list default="true" id="69ac6625-1897-49d9-a17d-8e6d345a9487" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/captive-portal_1.0_amd64.deb" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,6 +35,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "deb-version",
+    "last_opened_file_path": "C:/Users/Kulik/OneDrive/Рабочий стол/captive_portal",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -38,6 +45,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Kulik\OneDrive\Рабочий стол\captive_portal" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Kulik\OneDrive\Рабочий стол\captive_portal\readmeImages" />
       <recent name="C:\Users\Kulik\OneDrive\Рабочий стол\captive_portal\images" />
@@ -59,6 +69,7 @@
       <workItem from="1715523136574" duration="4425000" />
       <workItem from="1715527664481" duration="980000" />
       <workItem from="1715528883006" duration="3095000" />
+      <workItem from="1715591902590" duration="3151000" />
     </task>
     <servers />
   </component>

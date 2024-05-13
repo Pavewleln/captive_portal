@@ -1,0 +1,27 @@
+Source: captive-portal
+Section: misc
+Priority: optional
+Maintainer: Pavel Kulikov <kulikovps2004@gmail.com>
+Build-Depends:
+ debhelper
+Standards-Version: 1.0
+Homepage: https://github.com/Pavewleln/captive_portal
+
+Package: captive-portal
+Depends:
+ freeradius,
+ freeradius-utils,
+ freeradius-postgresql,
+ nginx,
+ wget,
+ curl,
+ npm,
+ procps,
+ postgresql,
+ postgresql-contrib,
+Architecture: any
+Provides: captive-portal
+Description: Captive_portal packages.
+ This is a Captive portal project. When we try to connect to some open
+ Wi-Fi, we are redirected to a page where we need to enter our data, after
+ which we will be given access to the Internet.
