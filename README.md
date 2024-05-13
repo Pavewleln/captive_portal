@@ -13,7 +13,9 @@
 
 ## Сборка deb пакета
 ```bash
-cd captive_portal-1.0
+apt-get install devscripts
+git clone git@github.com:Pavewleln/captive_portal.git
+cd captive_portal/captive_portal-1.0
 sudo debuild -us -uc -b
 ```
 
@@ -22,4 +24,12 @@ sudo debuild -us -uc -b
 dpkg -i captive-portal_1.0_amd64.deb
 ```
 
-Все необходимые зависимости устонавливаются в ручную
+Все необходимые зависимости устанавливаются в ручную
+```bash
+apt-get install -y freeradius freeradius-postgresql freeradius-utils nginx curl npm postgresql postgresql-contrib
+```
+
+## Удаление 
+```bash
+apt-get purge captive-portal
+```
