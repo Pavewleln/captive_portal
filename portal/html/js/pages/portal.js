@@ -69,20 +69,20 @@ document.getElementById("admin_form").addEventListener("submit", async (event) =
     const password = document.getElementById("admin_password").value;
 
     try {
-        const response = await fetch(`${url}/account/admin`, {
-            method: "POST", headers: {
-                "Content-Type": "application/json",
-            }, body: JSON.stringify({username, password})
-        });
+       const response = await fetch(`${url}/account/admin`, {
+           method: "POST", headers: {
+               "Content-Type": "application/json",
+           }, body: JSON.stringify({username, password})
+       });
 
-        const data = await response.json();
-        if (data.user.username && data.user.password) {
+       const data = await response.json();
+       if (data.user.username && data.user.password) {
             chilliController.onError = handleErrors;
             chilliController.onUpdate = updateUIAdmin;
             chilliController.logon(username, password);
-        } else {
-            showToast(data.msg || "Ошибка авторизации. Проверьте правильность введенных данных");
-        }
+       } else {
+           showToast(data.msg || "Ошибка авторизации. Проверьте правильность введенных данных");
+       }
     } catch (error) {
         showToast(error.msg || "Ошибка авторизации. Проверьте правильность введенных данных", error);
     }
@@ -97,6 +97,8 @@ document.getElementById("logoff").addEventListener("click", async () => {
 function updateUILogin() {
     if (chilliController.clientState === 1) {
         showSuccessfullyLogin();
+        const profile_username = document.getElementById('profile_username');
+        profile_username.innerHTML = chilliController.session.userName;
     } else if (chilliController.clientState === 0 && chilliController.command === 'logon') {
         showToast('Введенные данные неверны', chilliController.clientState);
     } else if (chilliController.clientState === 0 && chilliController.command === 'logoff') {

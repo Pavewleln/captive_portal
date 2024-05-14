@@ -1,0 +1,19 @@
+{
+  "name" : "radius",
+  "version" : "1.1.4",
+  "description" : "RADIUS packet encoding/decoding",
+  "author": "Nearbuy Systems <npm@nearbuysystems.com>",
+  "main": "./lib/radius",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nearbuy/node-radius.git"
+  },
+  "engines": { "node": ">=0.8.0" },
+  "devDependencies": {
+    "nodeunit": "~0.8.6"
+  },
+  "scripts": {
+    "test": "nodeunit test"
+  },
+  "keywords": ["radius"]
+}
