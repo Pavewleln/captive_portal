@@ -61,20 +61,7 @@ listen {
 
 authorize {
 	preprocess
-    rewrite_calling_station_id
-    if(!EAP-Message){
-        if("%{sql:SELECT COUNT(*) FROM macs WHERE callingstationid = '%{Calling-Station-ID}'}" > 0){
-            update control {
-                    Auth-Type := Accept
-            }
-        }
-        else {
-            reject
-        }
-
-    } else {
-        eap
-    }
+    eap
 	filter_username
 #	filter_password
 #	operator-name

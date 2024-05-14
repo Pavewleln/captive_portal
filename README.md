@@ -1,7 +1,7 @@
 # Captive Portal
 
 ## Обзор
-Проект Captive Portal был успешно протестирован на роутере с OpenWRT версии 23.05 и CoovaChilli, а также на операционной системе Debian 12.
+Проект Captive Portal был успешно протестирован на роутере с OpenWRT версии 23.05 и CoovaChilli, Keenetic-9130, а также на операционной системе Debian 12 bookworm.
 
 ## Используемые технологии
 - FreeRADIUS версии 3.0
